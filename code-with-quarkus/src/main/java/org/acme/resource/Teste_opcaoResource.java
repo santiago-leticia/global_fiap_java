@@ -21,7 +21,7 @@ public class Teste_opcaoResource {
     Teste_opcaoService testeOpcaoService;
 
     @POST
-    @Path("/carreira")
+    @Path("/opacao/adicionar")
     public Response CadastraOpcao(Teste_opcaoDTO testeOpcaoDTO){
         try{
             testeOpcaoService.inseriropcao(testeOpcaoDTO);
@@ -37,7 +37,7 @@ public class Teste_opcaoResource {
         }
     }
     @GET
-    @Path("teste/{id}")
+    @Path("opcao/relatorio/{id}")
     public Response relatorio_opcao(@QueryParam("id_questao") int id){
         try{
             List<Teste_opcao> l= testeOpcaoService.relatorioopcao(id);
@@ -52,7 +52,7 @@ public class Teste_opcaoResource {
         }
     }
     @DELETE
-    @Path("/deleta_opcao/{id}")
+    @Path("/opcao/deleta/{id}")
     public Response RemoverOpcao(@PathParam("id_opcao") int id){
         try {
             testeOpcaoService.RemoverOpcao(id);
@@ -69,7 +69,7 @@ public class Teste_opcaoResource {
         }
     }
     @PUT
-    @Path("/atualizar")
+    @Path("/opcao/atualizar")
     public Response atualizarOpcao(Teste_opcao testeOpcao){
         try{
             testeOpcaoService.UpdanteOpcao(testeOpcao.getId_questao(),

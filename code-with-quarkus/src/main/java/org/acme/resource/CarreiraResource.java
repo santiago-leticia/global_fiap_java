@@ -37,7 +37,7 @@ public class CarreiraResource {
         }
     }
     @GET
-    @Path("resultado")
+    @Path("carreira/resultado")
     public Response relatorio_carreira(Carreira carreira){
         try{
             List<Carreira> l= carreiraService.relatorioCarreira(carreira.getId_carreira(),
@@ -53,7 +53,7 @@ public class CarreiraResource {
         }
     }
     @DELETE
-    @Path("/delete_carreira/{id}")
+    @Path("carreira/delete/{id}")
     public Response RemoverCarreira(@PathParam("id") int id,@QueryParam("nome") String nome){
         try {
             carreiraService.RemoverCarreira(id, nome);
@@ -70,7 +70,7 @@ public class CarreiraResource {
         }
     }
     @PUT
-    @Path("/atualizar/{id}")
+    @Path("carreira/atualizar/{id}")
     public Response atualizarUsuario(@PathParam("id") int id, CarreiraDTO carreiraDTO){
         try{
             carreiraService.UpdanteCarreira(id,carreiraDTO.getNome_carreira(),

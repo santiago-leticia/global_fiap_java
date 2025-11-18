@@ -23,7 +23,7 @@ public class UsuarioResource {
     UsuarioService usuarioService;
 
     @POST
-    @Path("/carreira")
+    @Path("/cadastra")
     public Response CadastrarUsuario(UsuarioDTO usuarioDTO){
         try{
 
@@ -56,7 +56,7 @@ public class UsuarioResource {
         }
     }
     @DELETE
-    @Path("login/deleta")
+    @Path("/login/deleta")
     public Response RemoverCarreira(Usuario usuario){
         try {
             usuarioService.RemoverUsuario(usuario.getEmail(),
@@ -74,7 +74,7 @@ public class UsuarioResource {
         }
     }
     @PUT
-    @Path("login/atualizar")
+    @Path("/login/atualizar")
     public Response atualizarUsuario(Usuario usuario, String emailO, String sO){
         try{
             usuarioService.UpdanteUsuario(usuario.getNome(),
