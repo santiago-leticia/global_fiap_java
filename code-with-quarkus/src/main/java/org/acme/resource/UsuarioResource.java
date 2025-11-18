@@ -23,7 +23,7 @@ public class UsuarioResource {
     UsuarioService usuarioService;
 
     @POST
-    @Path("/cadastra")
+    @Path("/cadastro")
     public Response CadastrarUsuario(UsuarioDTO usuarioDTO){
         try{
 
@@ -40,15 +40,17 @@ public class UsuarioResource {
     }
     @GET
     @Path("login")
-    public Response relatorio_Usuario(Usuario usuario){
+    public Response login(Usuario usuario){
         try{
             List<Usuario> l= usuarioService.relatorioUsuario(
                     usuario.getEmail(),
                     usuario.getSenha());
+
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Erro ao conectar").build();
+            Map<String, String> erro = new HashMap<>();
+            erro.put("mensagem", "Erro ao conectar.");
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(erro).build();
         }catch (IllegalArgumentException e){
             Map<String, String> erro = new HashMap<>();
             erro.put("erro", "Usuário não encontrado");
@@ -75,12 +77,12 @@ public class UsuarioResource {
     }
     @PUT
     @Path("/login/atualizar")
-    public Response atualizarUsuario(Usuario usuario, String emailO, String sO){
+    public Response atualizarUsuario(Usuario usuario){
         try{
             usuarioService.UpdanteUsuario(usuario.getNome(),
                     usuario.getCpf(),usuario.getIdade(),
                     usuario.getEmail(), usuario.getSenha(),
-                    usuario.getId_usuario(), emailO, sO);
+                    usuario.getId_usuario(),usuario.getEmail(),usuario.getSenha());
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")

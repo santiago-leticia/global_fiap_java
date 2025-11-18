@@ -70,7 +70,7 @@ public class Teste_opcaoRepository {
     }
 
     public  void RemoverOpcao(int id){
-        String sql= "DELETE FROM T_RHSTU_TESTE_OPCAO id_opcao=?";
+        String sql= "DELETE FROM T_RHSTU_TESTE_OPCAO WHERE id_opcao=?";
         try(Connection con= dataSource.getConnection();PreparedStatement ps= con.prepareStatement(sql)){
             ps.setInt(1,id);
             int deleta= ps.executeUpdate();

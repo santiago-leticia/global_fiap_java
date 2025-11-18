@@ -21,7 +21,7 @@ public class Teste_questaoResource {
     Teste_questaoService testeQuestaoService;
 
     @POST
-    @Path("/carreira")
+    @Path("/questao/cadastrar")
     public Response CadastrarQuestao(Teste_QuestaoDTO testeQuestaoDTO){
         try{
             testeQuestaoService.inserirQuestao(testeQuestaoDTO);
@@ -36,10 +36,10 @@ public class Teste_questaoResource {
         }
     }
     @GET
-    @Path("/teste_questao/{id_questao}")
-    public Response relatorio_carreira(@PathParam("id_questao") int id){
+    @Path("/questao/relatorio")
+    public Response relatorio_questao(Teste_Questao testeQuestao){
         try{
-            List<Teste_Questao> l= testeQuestaoService.relatorioQuestao(id);
+            List<Teste_Questao> l= testeQuestaoService.relatorioQuestao(testeQuestao.getId_questao());
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -51,10 +51,10 @@ public class Teste_questaoResource {
         }
     }
     @DELETE
-    @Path("/deleta/questao/{id_questao}")
-    public Response RemoverQuestao(@PathParam("id_questao") int id){
+    @Path("/questao/deleta")
+    public Response removerQuestao(Teste_Questao testeQuestao){
         try {
-            testeQuestaoService.RemoverQuestao(id);
+            testeQuestaoService.RemoverQuestao(testeQuestao.getId_questao());
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){
@@ -68,10 +68,12 @@ public class Teste_questaoResource {
         }
     }
     @PUT
-    @Path("/atualizar/questao/{id}")
-    public Response atualizarQuestao(@PathParam("id") int id, String tx){
+    @Path("/questao/atualizar")
+    public Response atualizarQuestao(Teste_Questao testeQuestao){
         try{
-            testeQuestaoService.UpdanteQuestao(id, tx);
+            testeQuestaoService.UpdanteQuestao(
+                    testeQuestao.getId_questao(),
+                    testeQuestao.getTexto_questao());
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")

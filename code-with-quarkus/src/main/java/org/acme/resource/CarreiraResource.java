@@ -87,6 +87,6 @@ public class CarreiraResource {
             return Response.
                     status(422)
                     .entity(e.getMessage()).build();
-        }
+       }
     }
 }

@@ -78,7 +78,7 @@ public class Teste_questaoRepository {
     }
 
     public void RemoverQuestao(int id){
-        String sql="DELETE FROM T_RHSTU_TESTE_QUESTAO id_questao=?";
+        String sql="DELETE FROM T_RHSTU_TESTE_QUESTAO WHERE id_questao=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1,id);

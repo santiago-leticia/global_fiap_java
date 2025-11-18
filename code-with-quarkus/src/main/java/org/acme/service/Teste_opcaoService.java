@@ -29,26 +29,22 @@ public class Teste_opcaoService {
     }
     public void valicaoinserir(Teste_opcaoDTO testeOpcaoDTO) throws SQLException {
         if (testeOpcaoDTO.getId_questao()<=0){
-            throw new IllegalArgumentException("Nome incorreto");
+            throw new IllegalArgumentException("id da questao incorreto");
         }
         if (testeOpcaoDTO.getId_carreira()<=0) {
-            throw new IllegalArgumentException("Cpf incorreto");
+            throw new IllegalArgumentException("id da carreira incorreto");
         }
         if (testeOpcaoDTO.getTexto()==null || testeOpcaoDTO.getTexto().isEmpty()){
-            throw new IllegalArgumentException("Idade incorreto");
+            throw new IllegalArgumentException("Texto incorreto");
         }
         if (testeOpcaoDTO.getValor_escolha()==0){
-            throw new IllegalArgumentException("Email incorreto");
+            throw new IllegalArgumentException("Valor incorreto");
         }
-        if (id_CarrreiraExiste(testeOpcaoDTO.getId_carreira())){
-            if (!id_CarrreiraExiste(testeOpcaoDTO.getId_carreira())){
+        if (!id_CarrreiraExiste(testeOpcaoDTO.getId_carreira())){
                 throw new IllegalArgumentException("Carreira não existe");
-            }
         }
-        if (questaoExiste(testeOpcaoDTO.getId_questao())){
-            if (!questaoExiste(testeOpcaoDTO.getId_questao())){
+        if (!questaoExiste(testeOpcaoDTO.getId_questao())){
                 throw new IllegalArgumentException("Opcao não existe");
-            }
         }
     }
     public boolean id_CarrreiraExiste(int id) throws SQLException{
@@ -79,12 +75,8 @@ public class Teste_opcaoService {
         testeOpcaoRepository.RemoverOpcao(id);
     }
     public void valiacaoRemocao(int id){
-        try{
-            if (id==0){
-                throw new IllegalArgumentException("id incorreto");
-            }
-        }catch (Exception e){
-            throw new RuntimeException(e);
+        if (id==0){
+            throw new IllegalArgumentException("id incorreto");
         }
     }
 
@@ -93,24 +85,20 @@ public class Teste_opcaoService {
         testeOpcaoRepository.updanteOpcao(id_questao, id_carreira, tx, vl, id_opcao);
     }
     public  void UpdanteValiacao(int id_questao, int id_carreira, String tx, int vl, int id_opcao){
-        try{
-            if (id_opcao<0 || id_opcao==0 ){
-                throw new IllegalArgumentException("id incorreto");
-            }
-            if (tx==null || tx.isEmpty()){
-                throw new IllegalArgumentException("Texto da opcao incorreto");
-            }
-            if (id_carreira==0 || id_carreira<0){
-                throw new IllegalArgumentException("id da carreira incorreto.");
-            }
-            if (id_questao==0 || id_questao<0){
-                throw new IllegalArgumentException("id da questao incorreta");
-            }
-            if (vl<0 || vl==0){
-                throw new IllegalArgumentException("valor incorreta");
-            }
-        }catch (Exception e){
-            throw new RuntimeException(e);
+        if (id_opcao<0 || id_opcao==0 ){
+            throw new IllegalArgumentException("id incorreto");
+        }
+        if (tx==null || tx.isEmpty()){
+            throw new IllegalArgumentException("Texto da opcao incorreto");
+        }
+        if (id_carreira==0 || id_carreira<0){
+            throw new IllegalArgumentException("id da carreira incorreto.");
+        }
+        if (id_questao==0 || id_questao<0){
+            throw new IllegalArgumentException("id da questao incorreta");
+        }
+        if (vl<0 || vl==0){
+            throw new IllegalArgumentException("valor incorreta");
         }
     }
 }

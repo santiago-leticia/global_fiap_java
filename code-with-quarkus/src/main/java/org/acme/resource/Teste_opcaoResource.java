@@ -22,9 +22,8 @@ public class Teste_opcaoResource {
 
     @POST
     @Path("/opacao/adicionar")
-    public Response CadastraOpcao(Teste_opcaoDTO testeOpcaoDTO){
+    public Response cadastraOpcao(Teste_opcaoDTO testeOpcaoDTO){
         try{
-            testeOpcaoService.inseriropcao(testeOpcaoDTO);
             testeOpcaoService.inseriropcao(testeOpcaoDTO);
             return Response.status(Response.Status.CREATED)
                     .entity("Criando com sucesso").build();
@@ -37,14 +36,15 @@ public class Teste_opcaoResource {
         }
     }
     @GET
-    @Path("opcao/relatorio/{id}")
-    public Response relatorio_opcao(@QueryParam("id_questao") int id){
+    @Path("/opcao/relatorio")
+    public Response relatorio_opcao(Teste_opcao testeOpcao){
         try{
-            List<Teste_opcao> l= testeOpcaoService.relatorioopcao(id);
+            List<Teste_opcao> l= testeOpcaoService.relatorioopcao(testeOpcao.getId_opcao());
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Erro ao conectar").build();
+            Map<String, String> erro = new HashMap<>();
+            erro.put("mensagem", "Erro ao conectar.");
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(erro).build();
         }catch (IllegalArgumentException e){
             Map<String, String> erro = new HashMap<>();
             erro.put("erro", "Opção não encontrado");
@@ -52,10 +52,10 @@ public class Teste_opcaoResource {
         }
     }
     @DELETE
-    @Path("/opcao/deleta/{id}")
-    public Response RemoverOpcao(@PathParam("id_opcao") int id){
+    @Path("/opcao/deleta")
+    public Response removerOpcao(Teste_opcao testeOpcao){
         try {
-            testeOpcaoService.RemoverOpcao(id);
+            testeOpcaoService.RemoverOpcao(testeOpcao.getId_opcao());
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){
@@ -73,15 +73,17 @@ public class Teste_opcaoResource {
     public Response atualizarOpcao(Teste_opcao testeOpcao){
         try{
             testeOpcaoService.UpdanteOpcao(testeOpcao.getId_questao(),
-                    testeOpcao.getId_carreira(),testeOpcao.getTexto(), testeOpcao.getValor_escolha(),
+                    testeOpcao.getId_carreira(),testeOpcao.getTexto(),
+                    testeOpcao.getValor_escolha(),
                     testeOpcao.getId_opcao());
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")
                     .build();
         }catch (SQLException e){
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(e.getMessage()).build();
+            Map<String, String> erro= new HashMap<>();
+            erro.put("mensagem", "Erro no servidor.");
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(erro).build();
         }catch (IllegalArgumentException e){
             return Response.
                     status(422)
