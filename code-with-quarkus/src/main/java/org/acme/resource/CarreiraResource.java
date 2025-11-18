@@ -23,17 +23,8 @@ public class CarreiraResource {
 
     @POST
     @Path("/carreira")
-    public Response adicionarCarreira(@QueryParam("nome") String n,
-                                      @QueryParam("ano_formacao") int ano,
-                                      @QueryParam("area_trabalho") String a_t,
-                                      @QueryParam("informacao_trabalho") String i_t, @QueryParam("dica_treino") String d_t){
+    public Response adicionarCarreira(CarreiraDTO carreiraDTO){
         try{
-            CarreiraDTO carreiraDTO= new CarreiraDTO();
-            carreiraDTO.setNome_carreira(n);
-            carreiraDTO.setAno_formacao(ano);
-            carreiraDTO.setArea_de_trabalho(a_t);
-            carreiraDTO.setInformacao_trabalho(i_t);
-            carreiraDTO.setDica_treino(d_t);
             carreiraService.inserirCarreira(carreiraDTO);
             return Response.status(Response.Status.CREATED)
                     .entity("Criando com sucesso").build();
@@ -46,8 +37,8 @@ public class CarreiraResource {
         }
     }
     @GET
-    @Path("resultado/{id}")
-    public Response relatorio_carreira(@PathParam("id") int id, @QueryParam("nome") String nome){
+    @Path("resultado")
+    public Response relatorio_carreira(@QueryParam("id") int id, @QueryParam("nome") String nome){
         try{
             List<Carreira> l= carreiraService.relatorioCarreira(id,nome);
             return Response.status(Response.Status.OK).entity(l).build();
@@ -61,7 +52,7 @@ public class CarreiraResource {
         }
     }
     @DELETE
-    @Path("/delete/{id}")
+    @Path("/delete_carreira/{id}")
     public Response RemoverCarreira(@PathParam("id") int id,@QueryParam("nome") String nome){
         try {
             carreiraService.RemoverCarreira(id, nome);
@@ -79,11 +70,11 @@ public class CarreiraResource {
     }
     @PUT
     @Path("/atualizar/{id}")
-    public Response atualizarUsuario(@PathParam("id") int id, @QueryParam("nome") String n,
-                                     @QueryParam("ano") int ano,
-                                     @QueryParam("area_trabalho") String area, @QueryParam("informacao_curso") String in,@QueryParam("dicas") String di){
+    public Response atualizarUsuario(@PathParam("id") int id, CarreiraDTO carreiraDTO){
         try{
-            carreiraService.UpdanteCarreira(id, n, ano, area, in, di);
+            carreiraService.UpdanteCarreira(id,carreiraDTO.getNome_carreira(),
+                    carreiraDTO.getAno_formacao(), carreiraDTO.getArea_de_trabalho(),
+                    carreiraDTO.getInformacao_trabalho(), carreiraDTO.getDica_treino());
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")
