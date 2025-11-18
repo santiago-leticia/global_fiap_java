@@ -1,5 +1,6 @@
 package org.acme.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.acme.model.Carreira;
 import org.acme.model.DTO.CarreiraDTO;
@@ -8,6 +9,7 @@ import org.acme.repository.CarreiraRepository;
 import java.sql.SQLException;
 import java.util.List;
 
+@ApplicationScoped
 public class CarreiraService {
     @Inject
     CarreiraRepository carreiraRepository;
