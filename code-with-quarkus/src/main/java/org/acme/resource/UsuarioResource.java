@@ -40,9 +40,11 @@ public class UsuarioResource {
     }
     @GET
     @Path("login")
-    public Response relatorio_carreira(String email, String senha){
+    public Response relatorio_Usuario(Usuario usuario){
         try{
-            List<Usuario> l= usuarioService.relatorioUsuario(email, senha);
+            List<Usuario> l= usuarioService.relatorioUsuario(
+                    usuario.getEmail(),
+                    usuario.getSenha());
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -54,10 +56,11 @@ public class UsuarioResource {
         }
     }
     @DELETE
-    @Path("/deleta")
-    public Response RemoverCarreira(String email, String senha){
+    @Path("login/deleta")
+    public Response RemoverCarreira(Usuario usuario){
         try {
-            usuarioService.RemoverUsuario(email,senha);
+            usuarioService.RemoverUsuario(usuario.getEmail(),
+                    usuario.getSenha());
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){
@@ -71,10 +74,13 @@ public class UsuarioResource {
         }
     }
     @PUT
-    @Path("/atualizar")
-    public Response atualizarUsuario(String nome, String cpf, int idade, String email,String senha, int id, String emailO, String sO){
+    @Path("login/atualizar")
+    public Response atualizarUsuario(Usuario usuario, String emailO, String sO){
         try{
-            usuarioService.UpdanteUsuario(nome, cpf, idade, email, senha, id, emailO, sO);
+            usuarioService.UpdanteUsuario(usuario.getNome(),
+                    usuario.getCpf(),usuario.getIdade(),
+                    usuario.getEmail(), usuario.getSenha(),
+                    usuario.getId_usuario(), emailO, sO);
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")

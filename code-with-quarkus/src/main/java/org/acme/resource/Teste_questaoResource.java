@@ -52,7 +52,7 @@ public class Teste_questaoResource {
     }
     @DELETE
     @Path("/deleta/{id_questao}")
-    public Response RemoverQuestao(@QueryParam("id_questao") int id){
+    public Response RemoverQuestao(@PathParam("id_questao") int id){
         try {
             testeQuestaoService.RemoverQuestao(id);
             return  Response.status(Response.Status.OK)
@@ -68,8 +68,8 @@ public class Teste_questaoResource {
         }
     }
     @PUT
-    @Path("/atualizar")
-    public Response atualizarQuestao(int id, String tx){
+    @Path("/atualizar/{id}")
+    public Response atualizarQuestao(@PathParam("id") int id, String tx){
         try{
             testeQuestaoService.UpdanteQuestao(id, tx);
 

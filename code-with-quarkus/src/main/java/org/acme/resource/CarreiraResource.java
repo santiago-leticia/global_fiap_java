@@ -38,9 +38,10 @@ public class CarreiraResource {
     }
     @GET
     @Path("resultado")
-    public Response relatorio_carreira(@QueryParam("id") int id, @QueryParam("nome") String nome){
+    public Response relatorio_carreira(Carreira carreira){
         try{
-            List<Carreira> l= carreiraService.relatorioCarreira(id,nome);
+            List<Carreira> l= carreiraService.relatorioCarreira(carreira.getId_carreira(),
+                    carreira.getNome_carreira());
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)

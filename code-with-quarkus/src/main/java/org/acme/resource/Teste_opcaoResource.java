@@ -70,9 +70,11 @@ public class Teste_opcaoResource {
     }
     @PUT
     @Path("/atualizar")
-    public Response atualizarOpcao(int id_questao, int id_carreira, String tx, int vl, int id_opcao){
+    public Response atualizarOpcao(Teste_opcao testeOpcao){
         try{
-            testeOpcaoService.UpdanteOpcao(id_questao, id_carreira, tx, vl, id_opcao);
+            testeOpcaoService.UpdanteOpcao(testeOpcao.getId_questao(),
+                    testeOpcao.getId_carreira(),testeOpcao.getTexto(), testeOpcao.getValor_escolha(),
+                    testeOpcao.getId_opcao());
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")
