@@ -22,10 +22,8 @@ public class Teste_questaoResource {
 
     @POST
     @Path("/carreira")
-    public Response CadastrarQuestao(@QueryParam("textoQuestao") String t_q){
+    public Response CadastrarQuestao(Teste_QuestaoDTO testeQuestaoDTO){
         try{
-            Teste_QuestaoDTO testeQuestaoDTO= new Teste_QuestaoDTO();
-            testeQuestaoDTO.setTexto_questao(t_q);
             testeQuestaoService.inserirQuestao(testeQuestaoDTO);
             return Response.status(Response.Status.CREATED)
                     .entity("Criando com sucesso").build();
@@ -38,8 +36,8 @@ public class Teste_questaoResource {
         }
     }
     @GET
-    @Path("teste")
-    public Response relatorio_carreira(@QueryParam("id_questao") int id){
+    @Path("/teste_questao/{id_questao}")
+    public Response relatorio_carreira(@PathParam("id_questao") int id){
         try{
             List<Teste_Questao> l= testeQuestaoService.relatorioQuestao(id);
             return Response.status(Response.Status.OK).entity(l).build();
@@ -53,7 +51,7 @@ public class Teste_questaoResource {
         }
     }
     @DELETE
-    @Path("/deleta")
+    @Path("/deleta/{id_questao}")
     public Response RemoverQuestao(@QueryParam("id_questao") int id){
         try {
             testeQuestaoService.RemoverQuestao(id);
@@ -71,9 +69,9 @@ public class Teste_questaoResource {
     }
     @PUT
     @Path("/atualizar")
-    public Response atualizarQuestao(Teste_Questao testeQuestao){
+    public Response atualizarQuestao(int id, String tx){
         try{
-            testeQuestaoService.UpdanteQuestao(testeQuestao);
+            testeQuestaoService.UpdanteQuestao(id, tx);
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")

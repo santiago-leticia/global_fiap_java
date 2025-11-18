@@ -22,16 +22,9 @@ public class Teste_opcaoResource {
 
     @POST
     @Path("/carreira")
-    public Response CadastraOpcao(@QueryParam("id_questao") int id_questao,
-                                  @QueryParam("texto") String texto,
-                                  @QueryParam("valor_escolha") int valor_escolha,
-                                  @QueryParam("id_carreira") int id_carreira){
+    public Response CadastraOpcao(Teste_opcaoDTO testeOpcaoDTO){
         try{
-            Teste_opcaoDTO testeOpcaoDTO= new Teste_opcaoDTO();
-            testeOpcaoDTO.setId_questao(id_questao);
-            testeOpcaoDTO.setTexto(texto);
-            testeOpcaoDTO.setValor_escolha(valor_escolha);
-            testeOpcaoDTO.setId_carreira(id_carreira);
+            testeOpcaoService.inseriropcao(testeOpcaoDTO);
             testeOpcaoService.inseriropcao(testeOpcaoDTO);
             return Response.status(Response.Status.CREATED)
                     .entity("Criando com sucesso").build();
@@ -44,8 +37,8 @@ public class Teste_opcaoResource {
         }
     }
     @GET
-    @Path("teste")
-    public Response relatorio_carreira(@QueryParam("id_questao") int id){
+    @Path("teste/{id}")
+    public Response relatorio_opcao(@QueryParam("id_questao") int id){
         try{
             List<Teste_opcao> l= testeOpcaoService.relatorioopcao(id);
             return Response.status(Response.Status.OK).entity(l).build();
@@ -59,8 +52,8 @@ public class Teste_opcaoResource {
         }
     }
     @DELETE
-    @Path("/deleta")
-    public Response RemoverQuestao(@QueryParam("id_questao") int id){
+    @Path("/deleta_opcao/{id}")
+    public Response RemoverOpcao(@PathParam("id_opcao") int id){
         try {
             testeOpcaoService.RemoverOpcao(id);
             return  Response.status(Response.Status.OK)
@@ -77,9 +70,9 @@ public class Teste_opcaoResource {
     }
     @PUT
     @Path("/atualizar")
-    public Response atualizarQuestao(Teste_opcao testeOpcao){
+    public Response atualizarOpcao(int id_questao, int id_carreira, String tx, int vl, int id_opcao){
         try{
-            testeOpcaoService.UpdanteOpcao(testeOpcao);
+            testeOpcaoService.UpdanteOpcao(id_questao, id_carreira, tx, vl, id_opcao);
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")

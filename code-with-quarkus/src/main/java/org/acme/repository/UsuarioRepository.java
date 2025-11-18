@@ -97,18 +97,18 @@ public class UsuarioRepository {
             throw new RuntimeException("Erro de remover");
         }
     }
-    public void updanteConta(Usuario usuario){
+    public void updanteConta(String nome, String cpf, int idade, String email,String senha, int id, String emailO, String sO){
         String sql="UPDATE T_RHSTU_USUARIO SET nm_usuario=?,cpf=?, idade=?, email_usuario=?, senha_usuario=? WHERE id_usuario=? AND email_usuario=? AND senha_usuario=?";
         try(Connection con= dateSource.getConnection(); PreparedStatement ps=con.prepareStatement(sql)){
 
-            ps.setString(2,usuario.getNome());
-            ps.setString(3,usuario.getCpf());
-            ps.setInt(4,usuario.getIdade());
-            ps.setString(5,usuario.getEmail());
-            ps.setString(6,usuario.getSenha());
-            ps.setInt(7,usuario.getId_usuario());
-            ps.setString(8,usuario.getEmail());
-            ps.setString(9,usuario.getSenha());
+            ps.setString(1,nome);
+            ps.setString(2,cpf);
+            ps.setInt(3,idade);
+            ps.setString(4,email);
+            ps.setString(5,senha);
+            ps.setInt(6,id);
+            ps.setString(7,emailO);
+            ps.setString(8,sO);
 
             int alteracao=ps.executeUpdate();
             if (alteracao>0){

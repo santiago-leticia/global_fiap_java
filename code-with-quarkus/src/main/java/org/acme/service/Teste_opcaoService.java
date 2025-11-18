@@ -88,25 +88,25 @@ public class Teste_opcaoService {
         }
     }
 
-    public void UpdanteOpcao(Teste_opcao testeOpcao) throws SQLException{
-        UpdanteValiacao(testeOpcao);
-        testeOpcaoRepository.updanteOpcao(testeOpcao);
+    public void UpdanteOpcao(int id_questao, int id_carreira, String tx, int vl, int id_opcao) throws SQLException{
+        UpdanteValiacao(id_questao, id_carreira, tx, vl, id_opcao);
+        testeOpcaoRepository.updanteOpcao(id_questao, id_carreira, tx, vl, id_opcao);
     }
-    public  void UpdanteValiacao(Teste_opcao testeOpcao){
+    public  void UpdanteValiacao(int id_questao, int id_carreira, String tx, int vl, int id_opcao){
         try{
-            if (testeOpcao.getId_opcao()<0 || testeOpcao.getId_opcao()==0 ){
+            if (id_opcao<0 || id_opcao==0 ){
                 throw new IllegalArgumentException("id incorreto");
             }
-            if (testeOpcao.getTexto()==null || testeOpcao.getTexto().isEmpty()){
+            if (tx==null || tx.isEmpty()){
                 throw new IllegalArgumentException("Texto da opcao incorreto");
             }
-            if (testeOpcao.getId_carreira()==0 || testeOpcao.getId_carreira()<0){
+            if (id_carreira==0 || id_carreira<0){
                 throw new IllegalArgumentException("id da carreira incorreto.");
             }
-            if (testeOpcao.getId_questao()==0 || testeOpcao.getId_questao()<0){
+            if (id_questao==0 || id_questao<0){
                 throw new IllegalArgumentException("id da questao incorreta");
             }
-            if (testeOpcao.getValor_escolha()<0 || testeOpcao.getValor_escolha()==0){
+            if (vl<0 || vl==0){
                 throw new IllegalArgumentException("valor incorreta");
             }
         }catch (Exception e){

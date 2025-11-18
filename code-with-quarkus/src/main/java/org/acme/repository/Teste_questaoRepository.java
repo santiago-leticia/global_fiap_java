@@ -93,12 +93,12 @@ public class Teste_questaoRepository {
 
     }
 
-    public  void updanteQuestao(Teste_Questao testeQuestao){
+    public  void updanteQuestao(int id, String tx){
         String sql="UPDATE T_RHSTU_TESTE_QUESTAO SET tx_questao=? WHERE id_questao=?";
         try(Connection con = dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)) {
-            ps.setString(2,testeQuestao.getTexto_questao());
-            ps.setInt(1,testeQuestao.getId_questao());
+            ps.setString(1,tx);
+            ps.setInt(2,id);
         }catch (SQLException e){
             throw new RuntimeException("Erro de updante");
         }

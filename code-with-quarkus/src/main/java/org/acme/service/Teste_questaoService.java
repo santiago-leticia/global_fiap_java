@@ -57,16 +57,16 @@ public class Teste_questaoService {
         }
     }
 
-    public void UpdanteQuestao(Teste_Questao testeQuestao) throws SQLException{
-        UpdanteValiacao(testeQuestao);
-        testeQuestaoRepository.updanteQuestao(testeQuestao);
+    public void UpdanteQuestao(int id, String tx) throws SQLException{
+        UpdanteValiacao(id, tx);
+        testeQuestaoRepository.updanteQuestao(id,tx);
     }
-    public  void UpdanteValiacao(Teste_Questao testeQuestao){
+    public  void UpdanteValiacao(int id, String tx){
         try{
-            if (testeQuestao.getId_questao()<0 ||testeQuestao.getId_questao()==0 ){
+            if (id<0 ||id==0 ){
                 throw new IllegalArgumentException("id incorreto");
             }
-            if (testeQuestao.getTexto_questao()==null || testeQuestao.getTexto_questao().isEmpty()){
+            if (tx==null || tx.isEmpty()){
                 throw new IllegalArgumentException("Texto da opcao incorreto");
             }
         }catch (Exception e){

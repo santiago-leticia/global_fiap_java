@@ -82,15 +82,16 @@ public class Teste_opcaoRepository {
         }
     }
 
-    public void updanteOpcao(Teste_opcao testeOpcao){
-        String sql="UPDATE T_RHSTU_TESTE_OPCAO SET id_questao=?, id_carreira=?, tx_opcao=?, vl_opcao=?";
+    public void updanteOpcao(int id_questao, int id_carreira, String tx, int vl, int id_opcao){
+        String sql="UPDATE T_RHSTU_TESTE_OPCAO SET id_questao=?, id_carreira=?, tx_opcao=?, vl_opcao=? WHERE id_opcao=?";
 
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
-            ps.setInt(1,testeOpcao.getId_questao());
-            ps.setInt(2,testeOpcao.getId_carreira());
-            ps.setString(3,testeOpcao.getTexto());
-            ps.setInt(4,testeOpcao.getValor_escolha());
+            ps.setInt(1,id_questao);
+            ps.setInt(2,id_carreira);
+            ps.setString(3,tx);
+            ps.setInt(4,vl);
+            ps.setInt(5,id_opcao);
 
             int alteradas= ps.executeUpdate();
             if(alteradas==0){

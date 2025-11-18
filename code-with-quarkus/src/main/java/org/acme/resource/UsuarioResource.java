@@ -72,9 +72,9 @@ public class UsuarioResource {
     }
     @PUT
     @Path("/atualizar")
-    public Response atualizarUsuario(Usuario usuario){
+    public Response atualizarUsuario(String nome, String cpf, int idade, String email,String senha, int id, String emailO, String sO){
         try{
-            usuarioService.UpdanteUsuario(usuario);
+            usuarioService.UpdanteUsuario(nome, cpf, idade, email, senha, id, emailO, sO);
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")
