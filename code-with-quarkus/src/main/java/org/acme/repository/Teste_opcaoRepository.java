@@ -46,16 +46,7 @@ public class Teste_opcaoRepository {
     }
 
     public List<Teste_opcao>relatorio(int id){
-        String sql="SELECT o.id_opcao, " +
-                "o.tx_opcao, " +
-                "o.vl_opcao, " +
-                "q.id_questao, " +
-                "c.id_carreira, " +
-                "FROM " +
-                "   T_RHSTU_TESTE_OPCAO o, " +
-                "   T_RHSTU_TESTE_QUESTAO q, " +
-                "   T_RHSTU_CARREIRA c, " +
-                "WHERE o.id_opcao=?";
+        String sql="SELECT o.id_opcao, o.tx_opcao, o.vl_opcao, q.id_questao, c.id_carreira, FROM T_RHSTU_TESTE_OPCAO o, T_RHSTU_TESTE_QUESTAO q, T_RHSTU_CARREIRA c WHERE o.id_opcao=?";
         try(Connection con = dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
             ps.setInt(1, id);
