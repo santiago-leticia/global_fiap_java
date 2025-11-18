@@ -91,7 +91,7 @@ public class CarreiraRepository {
             return listaCarreira;
         }
     }
-    public void RemoverCadeira(int id, String carreira) throws SQLException{
+    public void RemoverCadeira(int id, String carreira){
         String sql= "DELETE FROM T_RHSTU_CARREIRA WHERE id_carreira=? AND nome_carreira=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)) {

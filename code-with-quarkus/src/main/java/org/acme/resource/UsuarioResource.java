@@ -4,11 +4,8 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.acme.model.Carreira;
-import org.acme.model.DTO.CarreiraDTO;
 import org.acme.model.DTO.UsuarioDTO;
 import org.acme.model.Usuario;
-import org.acme.service.CarreiraService;
 import org.acme.service.UsuarioService;
 
 import java.sql.SQLException;

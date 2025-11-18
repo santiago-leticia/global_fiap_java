@@ -4,12 +4,9 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.acme.model.DTO.Teste_QuestaoDTO;
 import org.acme.model.DTO.Teste_opcaoDTO;
-import org.acme.model.Teste_Questao;
 import org.acme.model.Teste_opcao;
 import org.acme.service.Teste_opcaoService;
-import org.acme.service.Teste_questaoService;
 
 import java.sql.SQLException;
 import java.util.HashMap;

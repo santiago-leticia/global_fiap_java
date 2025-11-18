@@ -46,7 +46,7 @@ public class CarreiraService {
         if (id==0 || id<0){
             throw new IllegalArgumentException("id incorreto");
         }
-        if (nome.isEmpty() || nome==null){
+        if (nome.isEmpty()){
             throw new IllegalArgumentException(nome);
         }
     }
@@ -60,7 +60,7 @@ public class CarreiraService {
             if (id==0){
                 throw new IllegalArgumentException("id incorreto");
             }
-            if (nome.isEmpty() || nome==null){
+            if (nome.isEmpty()){
                 throw new IllegalArgumentException("Nome incorreto da carreira");
             }
         }catch (Exception e){
