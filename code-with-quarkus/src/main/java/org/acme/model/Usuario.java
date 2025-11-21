@@ -7,6 +7,8 @@ public class Usuario {
     private int idade;
     private String email;
     private String senha;
+    private String data_criacao;
+
     public Usuario() {}
 
     public int getId_usuario() {
@@ -57,4 +59,11 @@ public class Usuario {
         this.senha = senha;
     }
 
+    public String getData_criacao() {
+        return data_criacao;
+    }
+
+    public void setData_criacao(String data_criacao) {
+        this.data_criacao = data_criacao;
+    }
 }

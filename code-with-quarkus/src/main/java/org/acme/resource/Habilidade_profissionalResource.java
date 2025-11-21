@@ -4,9 +4,12 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.acme.model.DTO.Teste_QuestaoDTO;
-import org.acme.model.Teste_Questao;
-import org.acme.service.Teste_questaoService;
+import org.acme.model.Cursos;
+import org.acme.model.DTO.CursosDTO;
+import org.acme.model.DTO.Habilidade_profissionalDTO;
+import org.acme.model.Habilidade_profissional;
+import org.acme.service.CursosService;
+import org.acme.service.Habilidade_profissionalService;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -16,15 +19,19 @@ import java.util.Map;
 @Path("/futureForge")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class Teste_questaoResource {
+public class Habilidade_profissionalResource {
+
+
+
     @Inject
-    Teste_questaoService testeQuestaoService;
+    Habilidade_profissionalService habilidadeProfissionalService;
 
     @POST
-    @Path("/questao/cadastrar")
-    public Response CadastrarQuestao(Teste_QuestaoDTO testeQuestaoDTO){
+    @Path("/habilidadeprofissional/inseri")
+    public Response Inserir(Habilidade_profissionalDTO habilidadeProfissionalDTO){
         try{
-            testeQuestaoService.inserirQuestao(testeQuestaoDTO);
+
+            habilidadeProfissionalService.cadastra(habilidadeProfissionalDTO);
             return Response.status(Response.Status.CREATED)
                     .entity("Criando com sucesso").build();
         }catch (SQLException e){
@@ -36,25 +43,29 @@ public class Teste_questaoResource {
         }
     }
     @GET
-    @Path("/questao/relatorio")
-    public Response relatorio_questao(Teste_Questao testeQuestao){
+    @Path("/habilidadeprofissional/informacao")
+    public Response relatorioHp(Habilidade_profissional habilidadeProfissional){
         try{
-            List<Teste_Questao> l= testeQuestaoService.relatorioQuestao(testeQuestao.getId_questao());
+            List<Habilidade_profissional> l= habilidadeProfissionalService.relatorio(
+                    habilidadeProfissional.getId_habilidade_profissional()
+            );
+
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Erro ao conectar").build();
+            Map<String, String> erro = new HashMap<>();
+            erro.put("mensagem", "Erro ao conectar.");
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(erro).build();
         }catch (IllegalArgumentException e){
             Map<String, String> erro = new HashMap<>();
-            erro.put("erro", "Questao não encontrado");
+            erro.put("erro", "Habilidade Profissional não encontrado");
             return Response.status(Response.Status.NOT_FOUND).entity(erro).build();
         }
     }
     @DELETE
-    @Path("/questao/deleta")
-    public Response removerQuestao(Teste_Questao testeQuestao){
+    @Path("/habilidadeprofissional/deleta")
+    public Response RemoverH_p(Habilidade_profissional habilidadeProfissional){
         try {
-            testeQuestaoService.RemoverQuestao(testeQuestao.getId_questao());
+            habilidadeProfissionalService.Remover(habilidadeProfissional.getId_habilidade_profissional());
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){
@@ -63,18 +74,18 @@ public class Teste_questaoResource {
             return Response.serverError().entity(erro).build();
         }catch (IllegalArgumentException e){
             Map<String, String> erro = new HashMap<>();
-            erro.put("erro", "Questao não encontrado");
+            erro.put("erro", "Habilidade Profissional não encontrado");
             return Response.status(Response.Status.NOT_FOUND).entity(erro).build();
         }
     }
     @PUT
-    @Path("/questao/atualizar")
-    public Response atualizarQuestao(Teste_Questao testeQuestao){
+    @Path("/habilidadeprofissional/atualizar")
+    public Response atualizarUsuario(Habilidade_profissional habilidadeProfissional){
         try{
-            testeQuestaoService.UpdanteQuestao(
-                    testeQuestao.getId_questao(),
-                    testeQuestao.getTexto_questao(),
-                    testeQuestao.getTipo_questao());
+            habilidadeProfissionalService.Updante(habilidadeProfissional.getId_habilidade_profissional(),
+                    habilidadeProfissional.getNivel_habilidade_profissional(),
+                    habilidadeProfissional.getNv_importancia(),habilidadeProfissional.getId_habilidade(),
+                    habilidadeProfissional.getId_carreira());
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")

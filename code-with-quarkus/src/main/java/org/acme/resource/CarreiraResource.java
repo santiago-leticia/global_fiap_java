@@ -75,7 +75,8 @@ public class CarreiraResource {
         try{
             carreiraService.UpdanteCarreira(id,carreiraDTO.getNome_carreira(),
                     carreiraDTO.getAno_formacao(), carreiraDTO.getArea_de_trabalho(),
-                    carreiraDTO.getInformacao_trabalho(), carreiraDTO.getDica_treino());
+                    carreiraDTO.getInformacao_trabalho(), carreiraDTO.getDica_treino(),
+                    carreiraDTO.getSalario_max(), carreiraDTO.getSalario_min(), carreiraDTO.getTempo_preparo_meses());
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")

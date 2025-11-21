@@ -57,17 +57,20 @@ public class Teste_questaoService {
         }
     }
 
-    public void UpdanteQuestao(int id, String tx) throws SQLException{
-        UpdanteValiacao(id, tx);
-        testeQuestaoRepository.updanteQuestao(id,tx);
+    public void UpdanteQuestao(int id, String tx, String tipo) throws SQLException{
+        UpdanteValiacao(id, tx,tipo);
+        testeQuestaoRepository.updanteQuestao(id,tx,tipo);
     }
-    public  void UpdanteValiacao(int id, String tx){
+    public  void UpdanteValiacao(int id, String tx, String tipo){
         try{
             if (id<0 ||id==0 ){
                 throw new IllegalArgumentException("id incorreto");
             }
             if (tx==null || tx.isEmpty()){
                 throw new IllegalArgumentException("Texto da opcao incorreto");
+            }
+            if (tipo==null || tipo.isEmpty()){
+                throw new IllegalArgumentException("tipo da opcao incorreto");
             }
         }catch (Exception e){
             throw new RuntimeException(e);

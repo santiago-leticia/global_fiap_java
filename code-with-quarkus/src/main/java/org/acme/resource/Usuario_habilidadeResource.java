@@ -4,9 +4,12 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.acme.model.DTO.Teste_QuestaoDTO;
-import org.acme.model.Teste_Questao;
-import org.acme.service.Teste_questaoService;
+import org.acme.model.Cursos;
+import org.acme.model.DTO.CursosDTO;
+import org.acme.model.DTO.Usuario_habilidadeDTO;
+import org.acme.model.Usuario_habilidade;
+import org.acme.service.CursosService;
+import org.acme.service.Usuario_habilidadeService;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -16,15 +19,19 @@ import java.util.Map;
 @Path("/futureForge")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class Teste_questaoResource {
+public class Usuario_habilidadeResource {
+
+
+
     @Inject
-    Teste_questaoService testeQuestaoService;
+    Usuario_habilidadeService usuarioHabilidadeService;
 
     @POST
-    @Path("/questao/cadastrar")
-    public Response CadastrarQuestao(Teste_QuestaoDTO testeQuestaoDTO){
+    @Path("/usuario/habilidade/inseri")
+    public Response CadastrarUsuarioHabilidade(Usuario_habilidadeDTO usuarioHabilidadeDTO){
         try{
-            testeQuestaoService.inserirQuestao(testeQuestaoDTO);
+
+            usuarioHabilidadeService.cadastra(usuarioHabilidadeDTO);
             return Response.status(Response.Status.CREATED)
                     .entity("Criando com sucesso").build();
         }catch (SQLException e){
@@ -36,25 +43,28 @@ public class Teste_questaoResource {
         }
     }
     @GET
-    @Path("/questao/relatorio")
-    public Response relatorio_questao(Teste_Questao testeQuestao){
+    @Path("/usuario/habilidade/ver")
+    public Response ralatorioHabilidadeU(Usuario_habilidade usuarioHabilidade){
         try{
-            List<Teste_Questao> l= testeQuestaoService.relatorioQuestao(testeQuestao.getId_questao());
+            List<Usuario_habilidade> l= usuarioHabilidadeService.relatorio(
+                    usuarioHabilidade.getId_habilidade_usuario());
+
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Erro ao conectar").build();
+            Map<String, String> erro = new HashMap<>();
+            erro.put("mensagem", "Erro ao conectar.");
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(erro).build();
         }catch (IllegalArgumentException e){
             Map<String, String> erro = new HashMap<>();
-            erro.put("erro", "Questao não encontrado");
+            erro.put("erro", "Habilidade usuario não encontrado");
             return Response.status(Response.Status.NOT_FOUND).entity(erro).build();
         }
     }
     @DELETE
-    @Path("/questao/deleta")
-    public Response removerQuestao(Teste_Questao testeQuestao){
+    @Path("/usuario/habilidade/deleta")
+    public Response RemoverU_habilidade(Usuario_habilidade usuarioHabilidade){
         try {
-            testeQuestaoService.RemoverQuestao(testeQuestao.getId_questao());
+            usuarioHabilidadeService.Remover(usuarioHabilidade.getId_habilidade_usuario());
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){
@@ -63,18 +73,17 @@ public class Teste_questaoResource {
             return Response.serverError().entity(erro).build();
         }catch (IllegalArgumentException e){
             Map<String, String> erro = new HashMap<>();
-            erro.put("erro", "Questao não encontrado");
+            erro.put("erro", "Habilidade usuario não encontrado");
             return Response.status(Response.Status.NOT_FOUND).entity(erro).build();
         }
     }
     @PUT
-    @Path("/questao/atualizar")
-    public Response atualizarQuestao(Teste_Questao testeQuestao){
+    @Path("/usuario/habilidade/atualizar")
+    public Response atualizarUsuarioHabilidade(Usuario_habilidade usuarioHabilidade){
         try{
-            testeQuestaoService.UpdanteQuestao(
-                    testeQuestao.getId_questao(),
-                    testeQuestao.getTexto_questao(),
-                    testeQuestao.getTipo_questao());
+            usuarioHabilidadeService.Updante(usuarioHabilidade.getId_habilidade_usuario(),
+                    usuarioHabilidade.getId_usuario(), usuarioHabilidade.getId_habilidade(),
+                    usuarioHabilidade.getLv_proficiencia());
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")

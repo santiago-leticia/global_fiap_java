@@ -40,6 +40,8 @@ public class Teste_opcaoRepository {
             ps.setInt(2,testeOpcao.getId_carreira());
             ps.setString(3,testeOpcao.getTexto());
             ps.setInt(4,testeOpcao.getValor_escolha());
+
+            ps.executeUpdate();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }

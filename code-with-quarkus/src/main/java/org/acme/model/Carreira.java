@@ -7,6 +7,9 @@ public class Carreira {
     private String area_de_trabalho;
     private String informacao_trabalho;
     private String dica_treino;
+    private Double salario_max;
+    private Double salario_min;
+    private int tempo_preparo_meses;
 
     public Carreira() {}
 
@@ -56,5 +59,29 @@ public class Carreira {
 
     public void setDica_treino(String dica_treino) {
         this.dica_treino = dica_treino;
+    }
+
+    public Double getSalario_max() {
+        return salario_max;
+    }
+
+    public void setSalario_max(Double salario_max) {
+        this.salario_max = salario_max;
+    }
+
+    public Double getSalario_min() {
+        return salario_min;
+    }
+
+    public void setSalario_min(Double salario_min) {
+        this.salario_min = salario_min;
+    }
+
+    public int getTempo_preparo_meses() {
+        return tempo_preparo_meses;
+    }
+
+    public void setTempo_preparo_meses(int tempo_preparo_meses) {
+        this.tempo_preparo_meses = tempo_preparo_meses;
     }
 }

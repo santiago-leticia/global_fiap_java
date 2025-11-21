@@ -4,9 +4,12 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.acme.model.DTO.Teste_QuestaoDTO;
-import org.acme.model.Teste_Questao;
-import org.acme.service.Teste_questaoService;
+import org.acme.model.Cursos;
+import org.acme.model.DTO.CursosDTO;
+import org.acme.model.DTO.UsuarioDTO;
+import org.acme.model.Usuario;
+import org.acme.service.CursosService;
+import org.acme.service.UsuarioService;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -16,15 +19,19 @@ import java.util.Map;
 @Path("/futureForge")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class Teste_questaoResource {
+public class CursosResource {
+
+
+
     @Inject
-    Teste_questaoService testeQuestaoService;
+    CursosService cursosService;
 
     @POST
-    @Path("/questao/cadastrar")
-    public Response CadastrarQuestao(Teste_QuestaoDTO testeQuestaoDTO){
+    @Path("/Curso/inseri")
+    public Response CadastrarUsuario(CursosDTO cursosDTO){
         try{
-            testeQuestaoService.inserirQuestao(testeQuestaoDTO);
+
+            cursosService.cadastra(cursosDTO);
             return Response.status(Response.Status.CREATED)
                     .entity("Criando com sucesso").build();
         }catch (SQLException e){
@@ -36,25 +43,28 @@ public class Teste_questaoResource {
         }
     }
     @GET
-    @Path("/questao/relatorio")
-    public Response relatorio_questao(Teste_Questao testeQuestao){
+    @Path("/Cursos/informacao")
+    public Response login(Cursos cursos){
         try{
-            List<Teste_Questao> l= testeQuestaoService.relatorioQuestao(testeQuestao.getId_questao());
+            List<Cursos> l= cursosService.relatorio(
+                    cursos.getNm_curso());
+
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Erro ao conectar").build();
+            Map<String, String> erro = new HashMap<>();
+            erro.put("mensagem", "Erro ao conectar.");
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(erro).build();
         }catch (IllegalArgumentException e){
             Map<String, String> erro = new HashMap<>();
-            erro.put("erro", "Questao não encontrado");
+            erro.put("erro", "Curso não encontrado");
             return Response.status(Response.Status.NOT_FOUND).entity(erro).build();
         }
     }
     @DELETE
-    @Path("/questao/deleta")
-    public Response removerQuestao(Teste_Questao testeQuestao){
+    @Path("/Cursos/deleta")
+    public Response RemoverCarreira(Cursos cursos){
         try {
-            testeQuestaoService.RemoverQuestao(testeQuestao.getId_questao());
+            cursosService.Remover(cursos.getNm_curso());
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){
@@ -63,18 +73,16 @@ public class Teste_questaoResource {
             return Response.serverError().entity(erro).build();
         }catch (IllegalArgumentException e){
             Map<String, String> erro = new HashMap<>();
-            erro.put("erro", "Questao não encontrado");
+            erro.put("erro", "Curso não encontrado");
             return Response.status(Response.Status.NOT_FOUND).entity(erro).build();
         }
     }
     @PUT
-    @Path("/questao/atualizar")
-    public Response atualizarQuestao(Teste_Questao testeQuestao){
+    @Path("/login/atualizar")
+    public Response atualizarUsuario(Cursos cursos){
         try{
-            testeQuestaoService.UpdanteQuestao(
-                    testeQuestao.getId_questao(),
-                    testeQuestao.getTexto_questao(),
-                    testeQuestao.getTipo_questao());
+            cursosService.Updante(cursos.getId_curso(),
+                    cursos.getNm_curso(), cursos.getUrl_curso(), cursos.getGratuito(),cursos.getDuracao(), cursos.getId_carreira());
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")

@@ -70,11 +70,11 @@ public class CarreiraService {
         }
     }
 
-    public void UpdanteCarreira(int id, String n, int ano, String area, String in, String di) throws SQLException{
-        UpdanteValiacao(id,  n,  ano,  area,  in,  di);
-        carreiraRepository.updanteCarreira( id,  n,  ano,  area,  in,  di);
+    public void UpdanteCarreira(int id, String n, int ano, String area, String in, String di, double s_max, double s_min, int t_p_m) throws SQLException{
+        UpdanteValiacao(id, n, ano, area, in, di, s_max, s_min, t_p_m);
+        carreiraRepository.updanteCarreira(id, n, ano, area, in, di, s_max, s_min, t_p_m);
     }
-    public  void UpdanteValiacao(int id, String n, int ano, String area, String in, String di){
+    public  void UpdanteValiacao(int id, String n, int ano, String area, String in, String di, double s_max, double s_min, int t_p_m){
         try{
             if (id<0 ||id==0 ){
                 throw new IllegalArgumentException("id incorreto");
@@ -93,6 +93,15 @@ public class CarreiraService {
             }
             if (in==null || in.isEmpty()){
                 throw new IllegalArgumentException("Informacao do trabalho incorreta incorreto");
+            }
+            if (s_min==0 || s_min<0){
+                throw new IllegalArgumentException("Salario minimo incorreto");
+            }
+            if (s_max==0 || s_max<0){
+                throw new IllegalArgumentException("Salario maximo incorreto");
+            }
+            if (t_p_m==0 || t_p_m<0){
+                throw new IllegalArgumentException("tempo do curso incorreto");
             }
         }catch (Exception e){
             throw new RuntimeException(e);

@@ -6,6 +6,7 @@ public class UsuarioDTO {
     private int idade;
     private String email;
     private String senha;
+    private String data_criacao;
 
     public UsuarioDTO() {}
 
@@ -47,5 +48,13 @@ public class UsuarioDTO {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getData_criacao() {
+        return data_criacao;
+    }
+
+    public void setData_criacao(String data_criacao) {
+        this.data_criacao = data_criacao;
     }
 }

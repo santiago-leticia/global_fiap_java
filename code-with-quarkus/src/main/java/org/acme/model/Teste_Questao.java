@@ -3,6 +3,7 @@ package org.acme.model;
 public class Teste_Questao {
     private int id_questao;
     private String texto_questao;
+    private String tipo_questao;
 
     public Teste_Questao() {}
 
@@ -22,4 +23,11 @@ public class Teste_Questao {
         this.texto_questao = texto_questao;
     }
 
-   }
+    public String getTipo_questao() {
+        return tipo_questao;
+    }
+
+    public void setTipo_questao(String tipo_questao) {
+        this.tipo_questao = tipo_questao;
+    }
+}
