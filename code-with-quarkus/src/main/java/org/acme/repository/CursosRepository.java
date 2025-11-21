@@ -30,7 +30,7 @@ public class CursosRepository {
     DataSource dataSource;
 
     public void inserirCursos(CursosDTO cursosDTO){
-        String sql= "INSERT INTO T_RHSTU_CURSOS (nm_curso, url_curso, gratuito, duracao, id_carreira)";
+        String sql= "INSERT INTO T_RHSTU_CURSOS (nm_curso, url_curso, gratuito, duracao, id_carreira) VALUES (?, ?, ?, ?, ?)";
         try(Connection con = dataSource.getConnection();
             PreparedStatement ps= con.prepareStatement(sql)){
 
@@ -47,13 +47,9 @@ public class CursosRepository {
     }
 
     public List<Cursos> RelatorioCursos(String nome){
-        String sql="SELECT c.id_curso, c.nm_curso, " +
-                "c.url_curso, c.gratuito, c.duracao, " +
-                "ca.id_carreira, ca.nm_carreira"+
-                " FROM " +
-                " T_RHSTU_CURSOS c," +
-                " T_RHSTU_CARREIRA ca " +
-                "WHERE c.nm_curso=?";
+        String sql="SELECT c.id_curso, c.nm_curso, c.url_curso, c.gratuito, c.duracao, ca.id_carreira, ca.nm_carreira "+
+                " FROM T_RHSTU_CURSOS c, T_RHSTU_CARREIRA ca " +
+                " WHERE ca.id_carreira= c.id_carreira AND c.nm_curso=?";
         List<Cursos> l= new ArrayList<>();
         try(Connection con= dataSource.getConnection();
             PreparedStatement ps= con.prepareStatement(sql)) {
@@ -76,7 +72,7 @@ public class CursosRepository {
             throw new RuntimeException(e);
         }
     }
-    public void RemoverCurso(String nomeCurso){
+    public void RemoverCurso(String nomeCurso) throws SQLException{
         String sql= "DELETE FROM T_RHSTU_CURSOS WHERE nm_curso=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
@@ -84,15 +80,15 @@ public class CursosRepository {
 
             int d= ps.executeUpdate();
             if (d>0){
-                throw new SQLException("Foi deletado");
+                throw new RuntimeException("Foi deletado");
             }
 
         }catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new SQLException(e);
         }
     }
 
-    public void updanteCursos(int id_curso, String nm_curso, String url_curso, String gratuito, int duracao, int id_carreira){
+    public void updanteCursos(int id_curso, String nm_curso, String url_curso, String gratuito, int duracao, int id_carreira) throws  SQLException{
         String sql="UPDATE T_RHSTU_CURSOS SET nm_curso=?, url_curso=?, gratuito=?, duracao=?, id_carreira=? WHERE id_curso=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
@@ -104,11 +100,11 @@ public class CursosRepository {
             ps.setInt(6,id_curso);
 
             int alteracao=ps.executeUpdate();
-            if (alteracao>0){
-                throw new RuntimeException("Foi alterando");
+            if (alteracao==0){
+                throw new RuntimeException("Nao foi encontrado a alteracao");
             }
         }catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new SQLException(e);
         }
     }
 

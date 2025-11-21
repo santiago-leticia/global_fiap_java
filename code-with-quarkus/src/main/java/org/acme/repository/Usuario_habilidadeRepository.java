@@ -73,11 +73,10 @@ public class Usuario_habilidadeRepository {
         {
             ps.setInt(1, id);
 
-
             int deletado=ps.executeUpdate();
 
-            if (deletado>0){
-                throw new SQLException("Foi deletado");
+            if (deletado==0){
+                throw new SQLException("Não foi deletado");
             }
 
         }catch (SQLException e) {

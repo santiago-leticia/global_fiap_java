@@ -60,7 +60,7 @@ public class Teste_opcaoService {
         valiacaoRelatorio(id);
         return testeOpcaoRepository.relatorio(id);
     }
-    public void valiacaoRelatorio(int id){
+    public void valiacaoRelatorio(int id) throws SQLException{
         List<Teste_opcao> l= testeOpcaoRepository.relatorio(id);
         if (l.isEmpty()){
             throw new IllegalArgumentException("Opção não existe no sistema");
@@ -84,7 +84,7 @@ public class Teste_opcaoService {
         UpdanteValiacao(id_questao, id_carreira, tx, vl, id_opcao);
         testeOpcaoRepository.updanteOpcao(id_questao, id_carreira, tx, vl, id_opcao);
     }
-    public  void UpdanteValiacao(int id_questao, int id_carreira, String tx, int vl, int id_opcao){
+    public  void UpdanteValiacao(int id_questao, int id_carreira, String tx, int vl, int id_opcao) {
         if (id_opcao<0 || id_opcao==0 ){
             throw new IllegalArgumentException("id incorreto");
         }

@@ -27,7 +27,7 @@ public class Teste_questaoRepository {
     @Inject
     DataSource dataSource;
 
-    public void inserirQuestao(Teste_QuestaoDTO testeQuestaoDTO){
+    public void inserirQuestao(Teste_QuestaoDTO testeQuestaoDTO) throws SQLException{
         String sql="INSERT INTO T_RHSTU_TESTE_QUESTAO(tx_questao,tipo_questao) VALUES (?,?)";
         try(Connection con = dataSource.getConnection();
             PreparedStatement ps= con.prepareStatement(sql))
@@ -35,12 +35,13 @@ public class Teste_questaoRepository {
             ps.setString(1,testeQuestaoDTO.getTexto_questao());
             ps.setString(2,testeQuestaoDTO.getTipo_questao());
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new SQLException(e);
         }
     }
 
-    public List<Teste_Questao> relatorio(int id){
+    public List<Teste_Questao> relatorio(int id) throws SQLException{
         String sql="select * from T_RHSTU_TESTE_QUESTAO where id_questao=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
@@ -60,7 +61,7 @@ public class Teste_questaoRepository {
                 return l;
             }
         }catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new SQLException(e);
         }
     }
     public List<Teste_Questao> lista() throws SQLException{
@@ -81,7 +82,7 @@ public class Teste_questaoRepository {
         }
     }
 
-    public void RemoverQuestao(int id){
+    public void RemoverQuestao(int id) throws SQLException{
         String sql="DELETE FROM T_RHSTU_TESTE_QUESTAO WHERE id_questao=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps = con.prepareStatement(sql)) {
@@ -92,20 +93,22 @@ public class Teste_questaoRepository {
                 throw new SQLException("Foi deletado");
             }
         }catch (SQLException e){
-            throw new RuntimeException("Erro em enviar");
+            throw new SQLException("Erro em enviar");
         }
 
     }
 
-    public  void updanteQuestao(int id, String tx, String tipo){
+    public  void updanteQuestao(int id, String tx, String tipo) throws SQLException{
         String sql="UPDATE T_RHSTU_TESTE_QUESTAO SET tx_questao=?,tipo_questao=? WHERE id_questao=?";
         try(Connection con = dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)) {
             ps.setString(1,tx);
-            ps.setInt(2,id);
             ps.setString(3, tipo);
+            ps.setInt(2,id);
+
+            ps.executeUpdate();
         }catch (SQLException e){
-            throw new RuntimeException("Erro de updante");
+            throw new SQLException("Erro de updante");
         }
     }
 

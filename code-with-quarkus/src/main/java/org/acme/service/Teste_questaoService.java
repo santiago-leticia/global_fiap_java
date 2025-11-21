@@ -33,7 +33,7 @@ public class Teste_questaoService {
         }
 
     }
-    public void valiacaoRelatorio(int id){
+    public void valiacaoRelatorio(int id) throws SQLException {
         List<Teste_Questao> l= testeQuestaoRepository.relatorio(id);
         if (l.isEmpty()){
             throw new IllegalArgumentException("Opção não existe no sistema");

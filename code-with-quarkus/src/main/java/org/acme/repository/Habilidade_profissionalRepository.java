@@ -81,8 +81,8 @@ CONSTRAINT T_RHSTU_CARREIRA_FK FOREIGN KEY(id_carreira) REFERENCES T_RHSTU_CARRE
 
                 int deletado=ps.executeUpdate();
 
-                if (deletado>0){
-                    throw new SQLException("Foi deletado");
+                if (deletado==0){
+                    throw new SQLException("Nenhuma apagamento");
                 }
 
             }catch (SQLException e) {

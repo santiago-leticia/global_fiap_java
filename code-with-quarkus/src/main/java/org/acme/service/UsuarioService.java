@@ -18,7 +18,7 @@ public class UsuarioService {
         valicaoCadastro(usuario);
         usuarioRepository.cadastrarUsuario(usuario);
     }
-    public void valicaoCadastro(UsuarioDTO usuario){
+    public void valicaoCadastro(UsuarioDTO usuario) throws SQLException{
         if (usuarioRepository.existeEmail(usuario.getEmail())){
             throw new IllegalArgumentException("Email ja cadastrado");
         }
@@ -44,7 +44,7 @@ public class UsuarioService {
             throw new RuntimeException(e);
         }
     }
-    public void valiacaoRelatorio(String email, String senha){
+    public void valiacaoRelatorio(String email, String senha) throws SQLException{
         List<Usuario>l= usuarioRepository.login(email,senha);
         if (l.isEmpty()){
             throw new IllegalArgumentException("Usuario nao existe no sistema");

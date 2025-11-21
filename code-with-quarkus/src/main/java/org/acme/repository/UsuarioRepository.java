@@ -31,7 +31,7 @@ public class UsuarioRepository {
     @Inject
     DataSource dateSource;
 
-    public void cadastrarUsuario(UsuarioDTO usuarioDTO){
+    public void cadastrarUsuario(UsuarioDTO usuarioDTO) throws SQLException{
         String sql= "INSERT INTO T_RHSTU_USUARIO (nm_usuario,cpf, idade, email_usuario, senha_usuario) VALUES (?,?,?,?,?)";
         try(Connection con = dateSource.getConnection();
             PreparedStatement ps= con.prepareStatement(sql)
@@ -45,10 +45,10 @@ public class UsuarioRepository {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLException(e);
         }
     }
-    public boolean existeEmail(String email_usuario){
+    public boolean existeEmail(String email_usuario) throws SQLException{
         String sql="SELECT COUNT(*) FROM T_RHSTU_USUARIO WHERE email_usuario=?";
         try(Connection con=dateSource.getConnection();
             PreparedStatement ps=con.prepareStatement(sql)) {
@@ -57,10 +57,10 @@ public class UsuarioRepository {
                 return (rs.next() && rs.getInt(1)>0);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLException(e);
         }
     }
-    public List<Usuario> login(String email, String senha){
+    public List<Usuario> login(String email, String senha) throws SQLException{
         String sql="select * from T_RHSTU_USUARIO WHERE email_usuario=? AND senha_usuario=?";
         try(Connection con =dateSource.getConnection();
             PreparedStatement ps=con.prepareStatement(sql)){
@@ -86,7 +86,7 @@ public class UsuarioRepository {
             throw new RuntimeException(e);
         }
     }
-    public void DeletarConta(String email, String senha){
+    public void DeletarConta(String email, String senha) throws SQLException{
         String sql="DELETE FROM T_RHSTU_USUARIO WHERE email_usuario=? AND senha_usuario=?";
 
         try(Connection con = dateSource.getConnection();
@@ -99,10 +99,10 @@ public class UsuarioRepository {
                 throw new SQLException("Conta removida");
             }
         }catch (SQLException e){
-            throw new RuntimeException("Erro de remover");
+            throw new SQLException("Erro de remover");
         }
     }
-    public void updanteConta(String nome, String cpf, int idade, String email,String senha, int id, String emailO, String sO){
+    public void updanteConta(String nome, String cpf, int idade, String email,String senha, int id, String emailO, String sO) throws SQLException{
         String sql="UPDATE T_RHSTU_USUARIO SET nm_usuario=?,nr_cpf=?, nr_idade=?, email_usuario=?, senha_usuario=? WHERE id_usuario=? AND email_usuario=? AND senha_usuario=?";
         try(Connection con= dateSource.getConnection(); PreparedStatement ps=con.prepareStatement(sql)){
 
@@ -116,11 +116,11 @@ public class UsuarioRepository {
             ps.setString(8,sO);
 
             int alteracao=ps.executeUpdate();
-            if (alteracao>0){
-                throw new SQLException("Atualizando");
+            if (alteracao==0){
+                throw new SQLException("Não foi Atualizando");
             }
         }catch (SQLException e){
-            throw new RuntimeException("Erro de conectar");
+            throw new SQLException("Erro de conectar");
         }
     }
 }

@@ -33,7 +33,7 @@ public class CarreiraRepository {
     DataSource dataSource;
 
     public void  inserirCarreira(CarreiraDTO c) throws SQLException{
-        String sql="INSERT INTO T_RHSTU_CARREIRA (nome_carreira, anos_formacao, area_de_trabalho, informacao_trabalho, dica_treino) VALUES (?, ?, ?, ?, ?)";
+        String sql="INSERT INTO T_RHSTU_CARREIRA (nome_carreira, anos_formacao, area_de_trabalho, informacao_trabalho, dica_treino) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection con= dataSource.getConnection();
              PreparedStatement ps= con.prepareStatement(sql)) {
             ps.setString(1,c.getNome_carreira());
@@ -52,7 +52,7 @@ public class CarreiraRepository {
     }
 
     public List<Carreira> RelatorioCarreira(int id, String nome) throws SQLException{
-        String sql= "SELECT * FROM T_RHSTU_CARREIRA id_carreira=? AND nome_carreira=?";
+        String sql= "SELECT * FROM T_RHSTU_CARREIRA id_carreira=? AND nm_carreira=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
             ps.setInt(1,id);
@@ -105,15 +105,15 @@ public class CarreiraRepository {
         }
     }
     public void RemoverCadeira(int id, String carreira){
-        String sql= "DELETE FROM T_RHSTU_CARREIRA WHERE id_carreira=? AND nome_carreira=?";
+        String sql= "DELETE FROM T_RHSTU_CARREIRA WHERE id_carreira=? AND nm_carreira=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)) {
             ps.setInt(1,id);
             ps.setString(2,carreira);
 
             int deleta=ps.executeUpdate();
-            if (deleta>0){
-                throw new SQLException("Foi deletado");
+            if (deleta==0){
+                throw new SQLException("Foi nao deletado");
             }
         }catch (SQLException e) {
             throw new RuntimeException("Erro de remover");
@@ -121,7 +121,7 @@ public class CarreiraRepository {
     }
 
     public void updanteCarreira(int id, String n, int ano, String area, String in, String di, double s_max, double s_min, int t_p_m){
-        String sql="UPDATE T_RHSTU_CARREIRA SET nome_carreira=?, anos_formacao=?, area_de_trabalho=?, informacao_trabalho=?, dica_treino=?, salario_min=?, salario_max=?, tempo_preparo_meses=? WHERE id_carreira=?";
+        String sql="UPDATE T_RHSTU_CARREIRA SET nm_carreira=?, anos_formacao=?, nm_area_de_trabalho=?, in_trabalho=?, dica_treino=?, salario_min=?, salario_max=?, tempo_preparo_meses=? WHERE id_carreira=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
             ps.setString(1,n);

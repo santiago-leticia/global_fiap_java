@@ -33,7 +33,7 @@ public class Teste_opcaoRepository {
 
     public void inserirOpcao(Teste_opcaoDTO testeOpcao){
 
-        String sql="INSERT INTO T_RHSTU_TESTE_OPCAO(id_questao, id_carreira, tx_opcao, vl_opcao) VALUES (?, ?, ?, ?, ?)";
+        String sql="INSERT INTO T_RHSTU_TESTE_OPCAO(id_questao, id_carreira, tx_opcao, vl_opcao) VALUES (?, ?, ?, ?)";
         try(Connection con= dataSource.getConnection(); PreparedStatement ps= con.prepareStatement(sql)){
 
             ps.setInt(1,testeOpcao.getId_questao());
@@ -47,8 +47,9 @@ public class Teste_opcaoRepository {
         }
     }
 
-    public List<Teste_opcao>relatorio(int id){
-        String sql="SELECT o.id_opcao, o.tx_opcao, o.vl_opcao, q.id_questao, c.id_carreira, FROM T_RHSTU_TESTE_OPCAO o, T_RHSTU_TESTE_QUESTAO q, T_RHSTU_CARREIRA c WHERE o.id_opcao=?";
+    public List<Teste_opcao>relatorio(int id) throws SQLException{
+        String sql="SELECT o.id_opcao, o.tx_opcao, o.vl_opcao, q.id_questao, c.id_carreira, FROM T_RHSTU_TESTE_OPCAO o, T_RHSTU_TESTE_QUESTAO q, T_RHSTU_CARREIRA c " +
+                "WHERE o.id_opcao= q.id_questao AND o.id_carreira = c.id_carreira AND o.id_opcao=?";
         try(Connection con = dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
             ps.setInt(1, id);
@@ -67,11 +68,11 @@ public class Teste_opcaoRepository {
             }
             return l;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLException(e);
         }
     }
 
-    public  void RemoverOpcao(int id){
+    public  void RemoverOpcao(int id) throws SQLException{
         String sql= "DELETE FROM T_RHSTU_TESTE_OPCAO WHERE id_opcao=?";
         try(Connection con= dataSource.getConnection();PreparedStatement ps= con.prepareStatement(sql)){
             ps.setInt(1,id);
@@ -80,11 +81,11 @@ public class Teste_opcaoRepository {
                 throw new SQLException("Foi deletando");
             }
         }catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new SQLException(e);
         }
     }
 
-    public void updanteOpcao(int id_questao, int id_carreira, String tx, int vl, int id_opcao){
+    public void updanteOpcao(int id_questao, int id_carreira, String tx, int vl, int id_opcao) throws SQLException{
         String sql="UPDATE T_RHSTU_TESTE_OPCAO SET id_questao=?, id_carreira=?, tx_opcao=?, vl_opcao=? WHERE id_opcao=?";
 
         try(Connection con= dataSource.getConnection();

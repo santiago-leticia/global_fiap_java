@@ -26,7 +26,7 @@ nm_categoria VARCHAR(60) NOT NULL
     @Inject
     DataSource dataSource;
 
-    public void inserirHabilidade(HabilidadeDTO habilidadeDTO){
+    public void inserirHabilidade(HabilidadeDTO habilidadeDTO) throws SQLException{
         String sql="INSERT INTO T_RHSTU_HABILIDADE(nm_habilidade, dm_mercado,nm_categoria) VALUES (?,?,?)";
         try(Connection con= dataSource.getConnection();
             PreparedStatement ps=con.prepareStatement(sql)){
@@ -36,11 +36,11 @@ nm_categoria VARCHAR(60) NOT NULL
             ps.executeUpdate();
 
         }catch (SQLException e){
-            throw new RuntimeException("Erro de executar");
+            throw new SQLException("Erro de executar");
         }
     }
 
-    public List<Habilidade> RelatorioHabilidade(String nome){
+    public List<Habilidade> RelatorioHabilidade(String nome) throws SQLException{
         String sql="SELECT * FROM T_RHSTU_HABILIDADE WHERE nm_habilidade=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
@@ -60,10 +60,10 @@ nm_categoria VARCHAR(60) NOT NULL
                 return l;
             }
         }catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new SQLException(e);
         }
     }
-    public void RemoverHabilidade(int id,String nome) {
+    public void RemoverHabilidade(int id,String nome) throws SQLException {
         String sql = "DELETE FROM T_RHSTU_HABILIDADE WHERE id_habilidade=? AND nm_habilidade=?";
         try (Connection con = dataSource.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -71,15 +71,15 @@ nm_categoria VARCHAR(60) NOT NULL
             ps.setString(2,nome);
 
             int deleta=ps.executeUpdate();
-            if (deleta>0){
-                throw new SQLException("Foi deletado");
+            if (deleta==0){
+                throw new SQLException("Não foi deletado");
             }
         }catch (SQLException e) {
-            throw new RuntimeException("Erro de remover");
+            throw new SQLException("Erro de remover");
         }
     }
 
-    public void updanteHabilidade(int id, String nm,String dm_m,String nm_c){
+    public void updanteHabilidade(int id, String nm,String dm_m,String nm_c) throws SQLException{
         String sql="UPDATE T_RHSTU_HABILIDADE SET nm_habilidade=?, dm_mercado=?, nm_categoria=? WHERE id_habilidade=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
@@ -88,11 +88,11 @@ nm_categoria VARCHAR(60) NOT NULL
             ps.setString(3,nm_c);
             ps.setInt(4,id);
             int alteradas=ps.executeUpdate();
-            if(alteradas>0){
-                throw new SQLException("Foi atuliazando");
+            if(alteradas==0){
+                throw new SQLException("Não foi atuliazado");
             }
         }catch (SQLException e){
-            throw new RuntimeException("Erro: ",e);
+            throw new SQLException("Erro: ",e);
         }
     }
 
