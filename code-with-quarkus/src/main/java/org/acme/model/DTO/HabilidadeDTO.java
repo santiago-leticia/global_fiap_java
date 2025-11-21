@@ -3,7 +3,7 @@ package org.acme.model.DTO;
 public class HabilidadeDTO {
     private String nm_habilidade;
     private String dm_mercado;
-    private String nm_categoria;
+    private String m_categoria;
 
     public HabilidadeDTO() {
     }
@@ -24,11 +24,11 @@ public class HabilidadeDTO {
         this.dm_mercado = dm_mercado;
     }
 
-    public String getNm_categoria() {
-        return nm_categoria;
+    public String getM_categoria() {
+        return m_categoria;
     }
 
-    public void setNm_categoria(String nm_categoria) {
-        this.nm_categoria = nm_categoria;
+    public void setM_categoria(String m_categoria) {
+        this.m_categoria = m_categoria;
     }
 }
