@@ -76,7 +76,7 @@ public class UsuarioResource {
         }
     }
     @PUT
-    @Path("/login/atualizar")
+    @Path("/usuario/atualizar")
     public Response atualizarUsuario(Usuario usuario){
         try{
             usuarioService.UpdanteUsuario(usuario.getNome(),
