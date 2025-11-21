@@ -27,7 +27,7 @@ public class CursosResource {
     CursosService cursosService;
 
     @POST
-    @Path("/Curso/inseri")
+    @Path("/curso/inseri")
     public Response CadastrarUsuario(CursosDTO cursosDTO){
         try{
 
@@ -43,11 +43,11 @@ public class CursosResource {
         }
     }
     @GET
-    @Path("/Cursos/informacao")
-    public Response login(Cursos cursos){
+    @Path("/cursos/{nome}")
+    public Response login(@PathParam("nome") String nm_curso){
         try{
             List<Cursos> l= cursosService.relatorio(
-                    cursos.getNm_curso());
+                    nm_curso);
 
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
@@ -61,10 +61,10 @@ public class CursosResource {
         }
     }
     @DELETE
-    @Path("/Cursos/deleta")
-    public Response RemoverCarreira(Cursos cursos){
+    @Path("/cursos/delete/{nc}")
+    public Response RemoverCarreira(@PathParam("nc") String nm_curso){
         try {
-            cursosService.Remover(cursos.getNm_curso());
+            cursosService.Remover(nm_curso);
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){

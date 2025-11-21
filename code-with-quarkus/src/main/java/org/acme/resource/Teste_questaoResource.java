@@ -36,10 +36,10 @@ public class Teste_questaoResource {
         }
     }
     @GET
-    @Path("/questao/relatorio")
-    public Response relatorio_questao(Teste_Questao testeQuestao){
+    @Path("/questao/{idquestao}")
+    public Response relatorio_questao(@PathParam("idquestao") int id_questao){
         try{
-            List<Teste_Questao> l= testeQuestaoService.relatorioQuestao(testeQuestao.getId_questao());
+            List<Teste_Questao> l= testeQuestaoService.relatorioQuestao(id_questao);
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -51,10 +51,10 @@ public class Teste_questaoResource {
         }
     }
     @DELETE
-    @Path("/questao/deleta")
-    public Response removerQuestao(Teste_Questao testeQuestao){
+    @Path("/questao/deleta/{id}")
+    public Response removerQuestao(@PathParam("id") int id_questao){
         try {
-            testeQuestaoService.RemoverQuestao(testeQuestao.getId_questao());
+            testeQuestaoService.RemoverQuestao(id_questao);
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){

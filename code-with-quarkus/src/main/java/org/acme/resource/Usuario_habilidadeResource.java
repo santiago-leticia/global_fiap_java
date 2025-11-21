@@ -43,11 +43,11 @@ public class Usuario_habilidadeResource {
         }
     }
     @GET
-    @Path("/usuario/habilidade/ver")
-    public Response ralatorioHabilidadeU(Usuario_habilidade usuarioHabilidade){
+    @Path("/usuario/habilidade/{id}")
+    public Response ralatorioHabilidadeU(@PathParam("id") int id){
         try{
             List<Usuario_habilidade> l= usuarioHabilidadeService.relatorio(
-                    usuarioHabilidade.getId_habilidade_usuario());
+                    id);
 
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
@@ -61,10 +61,10 @@ public class Usuario_habilidadeResource {
         }
     }
     @DELETE
-    @Path("/usuario/habilidade/deleta")
-    public Response RemoverU_habilidade(Usuario_habilidade usuarioHabilidade){
+    @Path("/usuario/habilidade/deleta/{id}")
+    public Response RemoverU_habilidade(@PathParam("id") int id){
         try {
-            usuarioHabilidadeService.Remover(usuarioHabilidade.getId_habilidade_usuario());
+            usuarioHabilidadeService.Remover(id);
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){

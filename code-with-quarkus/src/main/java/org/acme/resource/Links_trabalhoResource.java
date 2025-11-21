@@ -27,7 +27,7 @@ public class Links_trabalhoResource {
     Links_trabalhoService linksTrabalhoService;
 
     @POST
-    @Path("/vaga/inseri")
+    @Path("/link")
     public Response CadastrarLink(Links_TrabalhoDTO linksTrabalhoDTO){
         try{
 
@@ -43,11 +43,10 @@ public class Links_trabalhoResource {
         }
     }
     @GET
-    @Path("/vaga/informacao")
-    public Response relatorioLink(Links_Trabalho linksTrabalho){
+    @Path("/link/informacao/{vagaNm}")
+    public Response relatorioLink(@PathParam("vagaNm") String nm_vaga){
         try{
-            List<Links_Trabalho> l= linksTrabalhoService.relatorio(
-                    linksTrabalho.getNm_vaga());
+            List<Links_Trabalho> l= linksTrabalhoService.relatorio(nm_vaga);
 
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
@@ -61,10 +60,10 @@ public class Links_trabalhoResource {
         }
     }
     @DELETE
-    @Path("/vaga/deleta")
-    public Response Removervaga(Links_Trabalho linksTrabalho){
+    @Path("/link/deleta/{nmvaga}")
+    public Response Removervaga(@PathParam("nmvaga") String nm_vaga){
         try {
-            linksTrabalhoService.Remover(linksTrabalho.getNm_vaga());
+            linksTrabalhoService.Remover(nm_vaga);
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){
@@ -79,7 +78,7 @@ public class Links_trabalhoResource {
     }
     @PUT
     @Path("/vaga/atualizar")
-    public Response atualizarUsuario(Links_Trabalho linksTrabalho){
+    public Response atualizarlink(Links_Trabalho linksTrabalho){
         try{
             linksTrabalhoService.Updante(linksTrabalho.getId_links(),
                     linksTrabalho.getNm_empresa(), linksTrabalho.getNm_vaga(),

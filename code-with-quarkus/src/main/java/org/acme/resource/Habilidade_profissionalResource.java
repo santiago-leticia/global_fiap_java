@@ -43,12 +43,10 @@ public class Habilidade_profissionalResource {
         }
     }
     @GET
-    @Path("/habilidadeprofissional/informacao")
-    public Response relatorioHp(Habilidade_profissional habilidadeProfissional){
+    @Path("/habilidadeprofissional/{id}")
+    public Response relatorioHp(@PathParam("id") int id){
         try{
-            List<Habilidade_profissional> l= habilidadeProfissionalService.relatorio(
-                    habilidadeProfissional.getId_habilidade_profissional()
-            );
+            List<Habilidade_profissional> l= habilidadeProfissionalService.relatorio(id);
 
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
@@ -62,10 +60,10 @@ public class Habilidade_profissionalResource {
         }
     }
     @DELETE
-    @Path("/habilidadeprofissional/deleta")
-    public Response RemoverH_p(Habilidade_profissional habilidadeProfissional){
+    @Path("/habilidadeprofissional/deleta/{id}")
+    public Response RemoverH_p(@PathParam("id") int id){
         try {
-            habilidadeProfissionalService.Remover(habilidadeProfissional.getId_habilidade_profissional());
+            habilidadeProfissionalService.Remover(id);
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){

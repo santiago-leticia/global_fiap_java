@@ -29,7 +29,7 @@ public class HabilidadeResource {
 
     @POST
     @Path("/habilidade/inseri")
-    public Response CadastrarUsuario(HabilidadeDTO habilidadeDTO){
+    public Response habilidade(HabilidadeDTO habilidadeDTO){
         try{
 
             habilidadeService.cadastra(habilidadeDTO);
@@ -44,11 +44,11 @@ public class HabilidadeResource {
         }
     }
     @GET
-    @Path("/habilidade/informacao")
-    public Response RelatorioHabilidade(Habilidade habilidade){
+    @Path("/habilidade/informacao/{nmh}")
+    public Response RelatorioHabilidade(@PathParam("nmh") String nm_habilidade){
         try{
             List<Habilidade> l= habilidadeService.relatorio(
-                    habilidade.getNm_habilidade());
+                    nm_habilidade);
 
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
@@ -62,10 +62,10 @@ public class HabilidadeResource {
         }
     }
     @DELETE
-    @Path("/habilidade/deleta")
-    public Response RemoverHabilidade(Habilidade habilidade){
+    @Path("/habilidade/deleta/{det}")
+    public Response RemoverHabilidade(@PathParam("det") int id_habilidade, @QueryParam("nm") String nm_habilidade){
         try {
-            habilidadeService.Remover(habilidade.getId_habilidade(), habilidade.getNm_habilidade());
+            habilidadeService.Remover(id_habilidade, nm_habilidade);
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){

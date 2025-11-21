@@ -36,10 +36,10 @@ public class Teste_opcaoResource {
         }
     }
     @GET
-    @Path("/opcao/relatorio")
-    public Response relatorio_opcao(Teste_opcao testeOpcao){
+    @Path("/opcao/relatorio/{id}")
+    public Response relatorio_opcao(@PathParam("id") int id_opcao){
         try{
-            List<Teste_opcao> l= testeOpcaoService.relatorioopcao(testeOpcao.getId_opcao());
+            List<Teste_opcao> l= testeOpcaoService.relatorioopcao(id_opcao);
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
             Map<String, String> erro = new HashMap<>();
@@ -52,10 +52,10 @@ public class Teste_opcaoResource {
         }
     }
     @DELETE
-    @Path("/opcao/deleta")
-    public Response removerOpcao(Teste_opcao testeOpcao){
+    @Path("/opcao/deleta/{idopcao}")
+    public Response removerOpcao(@PathParam("idopcao") int id){
         try {
-            testeOpcaoService.RemoverOpcao(testeOpcao.getId_opcao());
+            testeOpcaoService.RemoverOpcao(id);
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){
