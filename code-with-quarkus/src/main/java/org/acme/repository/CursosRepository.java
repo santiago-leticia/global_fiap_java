@@ -31,7 +31,9 @@ public class CursosRepository {
     DataSource dataSource;
 
     public void inserirCursos(CursosDTO cursosDTO){
-        String sql= "INSERT INTO T_RHSTU_CURSOS (nm_curso, url_curso, gratuito, duracao, id_carreira) VALUES (?, ?, ?, ?, ?)";
+        String sql= "INSERT INTO T_RHSTU_CURSOS " +
+                "(nm_curso, url_curso, gratuito, duracao, id_carreira)" +
+                " VALUES (?, ?, ?, ?, ?)";
         try(Connection con = dataSource.getConnection();
             PreparedStatement ps= con.prepareStatement(sql)){
 
@@ -48,7 +50,14 @@ public class CursosRepository {
     }
 
     public List<Cursos> RelatorioCursos(String nome){
-        String sql="SELECT c.id_curso, c.nm_curso, c.url_curso, c.gratuito, c.duracao, ca.id_carreira, ca.nm_carreira "+
+        String sql="SELECT " +
+                "c.id_curso, " +
+                "c.nm_curso, " +
+                "c.url_curso, " +
+                "c.gratuito, " +
+                "c.duracao," +
+                " ca.id_carreira, " +
+                " ca.nm_carreira "+
                 " FROM T_RHSTU_CURSOS c, T_RHSTU_CARREIRA ca " +
                 " WHERE ca.id_carreira= c.id_carreira AND c.nm_curso=?";
         List<Cursos> l= new ArrayList<>();
@@ -90,7 +99,9 @@ public class CursosRepository {
     }
 
     public void updanteCursos(int id_curso, String nm_curso, String url_curso, String gratuito, int duracao, int id_carreira) throws  SQLException{
-        String sql="UPDATE T_RHSTU_CURSOS SET nm_curso=?, url_curso=?, gratuito=?, duracao=?, id_carreira=? WHERE id_curso=?";
+        String sql="UPDATE T_RHSTU_CURSOS" +
+                " SET nm_curso=?, url_curso=?, gratuito=?," +
+                " duracao=?, id_carreira=? WHERE id_curso=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
             ps.setString(1,nm_curso);

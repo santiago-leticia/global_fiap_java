@@ -32,7 +32,7 @@ public class UsuarioRepository {
     DataSource dateSource;
 
     public void cadastrarUsuario(UsuarioDTO usuarioDTO) throws SQLException{
-        String sql= "INSERT INTO T_RHSTU_USUARIO (nm_usuario,cpf, idade, email_usuario, senha_usuario) VALUES (?,?,?,?,?)";
+        String sql= "INSERT INTO T_RHSTU_USUARIO (nm_usuario, nr_cpf, nr_idade, email_usuario, senha_usuario) VALUES (?,?,?,?,?)";
         try(Connection con = dateSource.getConnection();
             PreparedStatement ps= con.prepareStatement(sql)
         ) {
@@ -95,15 +95,15 @@ public class UsuarioRepository {
             ps.setString(2,senha);
 
             int deleta=ps.executeUpdate();
-            if (deleta>0){
-                throw new SQLException("Conta removida");
+            if (deleta==0){
+                throw new SQLException("Conta não removida");
             }
         }catch (SQLException e){
             throw new SQLException("Erro de remover");
         }
     }
     public void updanteConta(String nome, String cpf, int idade, String email,String senha, int id, String emailO, String sO) throws SQLException{
-        String sql="UPDATE T_RHSTU_USUARIO SET nm_usuario=?,nr_cpf=?, nr_idade=?, email_usuario=?, senha_usuario=? WHERE id_usuario=? AND email_usuario=? AND senha_usuario=?";
+        String sql="UPDATE T_RHSTU_USUARIO SET nm_usuario=?, nr_cpf=?, nr_idade=?, email_usuario=?, senha_usuario=? WHERE id_usuario=? AND email_usuario=? AND senha_usuario=?";
         try(Connection con= dateSource.getConnection(); PreparedStatement ps=con.prepareStatement(sql)){
 
             ps.setString(1,nome);

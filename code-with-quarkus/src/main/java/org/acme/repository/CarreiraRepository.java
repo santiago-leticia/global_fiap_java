@@ -33,7 +33,9 @@ public class CarreiraRepository {
     DataSource dataSource;
 
     public void  inserirCarreira(CarreiraDTO c) throws SQLException{
-        String sql="INSERT INTO T_RHSTU_CARREIRA (nome_carreira, anos_formacao, area_de_trabalho, informacao_trabalho, dica_treino) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql="INSERT INTO T_RHSTU_CARREIRA " +
+                "(nm_carreira, anos_formacao, nm_area_de_trabalho, in_trabalho, dica_treino, salario_min, salario_max, tempo_preparo_meses) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection con= dataSource.getConnection();
              PreparedStatement ps= con.prepareStatement(sql)) {
             ps.setString(1,c.getNome_carreira());
@@ -119,7 +121,8 @@ public class CarreiraRepository {
     }
 
     public void updanteCarreira(int id, String n, int ano, String area, String in, String di, double s_max, double s_min, int t_p_m){
-        String sql="UPDATE T_RHSTU_CARREIRA SET nm_carreira=?, anos_formacao=?, nm_area_de_trabalho=?, in_trabalho=?, dica_treino=?, salario_min=?, salario_max=?, tempo_preparo_meses=? WHERE id_carreira=?";
+        String sql="UPDATE T_RHSTU_CARREIRA SET nm_carreira=?, anos_formacao=?, nm_area_de_trabalho=?," +
+                " in_trabalho=?, dica_treino=?, salario_min=?, salario_max=?, tempo_preparo_meses=? WHERE id_carreira=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
             ps.setString(1,n);

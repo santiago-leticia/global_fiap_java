@@ -25,8 +25,11 @@ public class UsuarioService {
         if (usuario.getNome()==null || usuario.getNome().isEmpty()){
             throw new IllegalArgumentException("Nome incorreto");
         }
-        if (usuario.getSenha()== null || usuario.getSenha().isEmpty()) {
+        if (usuario.getCpf()==null || usuario.getCpf().isEmpty()){
             throw new IllegalArgumentException("Cpf incorreto");
+        }
+        if (usuario.getSenha()== null || usuario.getSenha().isEmpty()) {
+            throw new IllegalArgumentException("Senha incorreto");
         }
         if (usuario.getIdade()==0){
             throw new IllegalArgumentException("Idade incorreto");
@@ -84,7 +87,7 @@ public class UsuarioService {
                 throw new IllegalArgumentException("id incorreto");
             }
             if (cpf==null || cpf.isEmpty()){
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Incorreto cpf");
             }
             if (usuarioRepository.existeEmail(email)){
                 throw new IllegalArgumentException("Email ja cadastrado");

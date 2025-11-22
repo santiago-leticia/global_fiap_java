@@ -92,7 +92,10 @@ CONSTRAINT T_RHSTU_CARREIRA_F FOREIGN KEY(id_carreira) REFERENCES T_RHSTU_CARREI
         }
 
     public void updante(int id, String nv_ha_p, String nv_i, int id_h, int id_carreira) throws SQLException {
-        String sql= "UPDATE T_RHSTU_LINKS_TRABALHO SET nv_habilidade_profissional=?, nv_importancia=?, id_habilidade=?, id_carreira=? WHERE id_habilidade_profissional=?";
+        String sql= "UPDATE T_RHSTU_HABILIDADE_PROFISSIONAL" +
+                " SET nv_habilidade_profissional=?, nv_importancia=?," +
+                " id_habilidade=?, id_carreira=?" +
+                " WHERE id_habilidade_profissional=?";
         try(Connection con= dataSource.getConnection();
             PreparedStatement ps= con.prepareStatement(sql)) {
             ps.setString(1,nv_ha_p);

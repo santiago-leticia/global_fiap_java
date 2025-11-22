@@ -24,16 +24,16 @@ public class Habilidade_profissionalService {
     public void valicaoInserir(Habilidade_profissionalDTO h) {
 
         if (h.getNivel_habilidade_profissional()== null || h.getNivel_habilidade_profissional().isEmpty()) {
-            throw new IllegalArgumentException("Nome da habilidade incorreto");
+            throw new IllegalArgumentException("nivel habilidade incorreto");
         }
         if (h.getNv_importancia().isEmpty() || h.getNv_importancia()==null) {
-            throw new RuntimeException("a demanda no mercado esta incorreto");
+            throw new RuntimeException("Nivel de importancia esta incorreto");
         }
         if (h.getId_habilidade()==0 || h.getId_habilidade()<0) {
-            throw new RuntimeException("Nome da categoria incorreto");
+            throw new RuntimeException("Id da habilidade incorreto");
         }
         if (h.getId_carreira()==0 || h.getId_carreira()<0) {
-            throw new RuntimeException("Nome da categoria incorreto");
+            throw new RuntimeException("id da carreira incorreto");
         }
     }
 

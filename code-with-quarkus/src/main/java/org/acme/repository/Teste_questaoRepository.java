@@ -102,9 +102,9 @@ public class Teste_questaoRepository {
         String sql="UPDATE T_RHSTU_TESTE_QUESTAO SET tx_questao=?,tipo_questao=? WHERE id_questao=?";
         try(Connection con = dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)) {
-            ps.setString(1,tx);
+            ps.setString(1, tx);
             ps.setString(3, tipo);
-            ps.setInt(2,id);
+            ps.setInt(2, id);
 
             ps.executeUpdate();
         }catch (SQLException e){
