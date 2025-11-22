@@ -28,7 +28,7 @@ public class CursosResource {
 
     @POST
     @Path("/curso/inseri")
-    public Response CadastrarUsuario(CursosDTO cursosDTO){
+    public Response CadastrarCurso(CursosDTO cursosDTO){
         try{
 
             cursosService.cadastra(cursosDTO);
@@ -44,7 +44,7 @@ public class CursosResource {
     }
     @GET
     @Path("/cursos/{nome}")
-    public Response login(@PathParam("nome") String nm_curso){
+    public Response relatorioCurso(@PathParam("nome") String nm_curso){
         try{
             List<Cursos> l= cursosService.relatorio(
                     nm_curso);
@@ -62,7 +62,7 @@ public class CursosResource {
     }
     @DELETE
     @Path("/cursos/delete/{nc}")
-    public Response RemoverCarreira(@PathParam("nc") String nm_curso){
+    public Response RemoverCurso(@PathParam("nc") String nm_curso){
         try {
             cursosService.Remover(nm_curso);
             return  Response.status(Response.Status.OK)
@@ -78,8 +78,8 @@ public class CursosResource {
         }
     }
     @PUT
-    @Path("/login/atualizar")
-    public Response atualizarUsuario(Cursos cursos){
+    @Path("/cursos/atualizar")
+    public Response atualizarCurso(Cursos cursos){
         try{
             cursosService.Updante(cursos.getId_curso(),
                     cursos.getNm_curso(), cursos.getUrl_curso(), cursos.getGratuito(),cursos.getDuracao(), cursos.getId_carreira());

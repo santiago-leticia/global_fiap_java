@@ -28,7 +28,7 @@ public class Habilidade_profissionalResource {
 
     @POST
     @Path("/habilidadeprofissional/inseri")
-    public Response Inserir(Habilidade_profissionalDTO habilidadeProfissionalDTO){
+    public Response Inserirhp(Habilidade_profissionalDTO habilidadeProfissionalDTO){
         try{
 
             habilidadeProfissionalService.cadastra(habilidadeProfissionalDTO);
@@ -78,7 +78,7 @@ public class Habilidade_profissionalResource {
     }
     @PUT
     @Path("/habilidadeprofissional/atualizar")
-    public Response atualizarUsuario(Habilidade_profissional habilidadeProfissional){
+    public Response atualizarhp(Habilidade_profissional habilidadeProfissional){
         try{
             habilidadeProfissionalService.Updante(habilidadeProfissional.getId_habilidade_profissional(),
                     habilidadeProfissional.getNivel_habilidade_profissional(),
