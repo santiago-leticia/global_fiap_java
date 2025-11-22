@@ -41,7 +41,7 @@ public class CarreiraService {
         return carreiraRepository.RelatorioCarreira(id);
     }
     public void valiacaoRelatorio(int id) throws SQLException {
-        List<Carreira> l= carreiraRepository.RelatorioCarreira(id,nome);
+        List<Carreira> l= carreiraRepository.RelatorioCarreira(id);
         if (l.isEmpty()){
             throw new IllegalArgumentException("Opção não existe no sistema");
         }
