@@ -37,11 +37,10 @@ public class CarreiraResource {
         }
     }
     @GET
-    @Path("/carreira/resultado")
-    public Response relatorio_carreira(Carreira carreira){
+    @Path("/carreira/resultado/{id}")
+    public Response relatorio_carreira(@PathParam("id") int id){
         try{
-            List<Carreira> l= carreiraService.relatorioCarreira(carreira.getId_carreira(),
-                    carreira.getNome_carreira());
+            List<Carreira> l= carreiraService.relatorioCarreira(id);
             return Response.status(Response.Status.OK).entity(l).build();
         }catch (SQLException e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)

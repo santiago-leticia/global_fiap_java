@@ -51,13 +51,11 @@ public class CarreiraRepository {
         }
     }
 
-    public List<Carreira> RelatorioCarreira(int id, String nome) throws SQLException{
-        String sql= "SELECT * FROM T_RHSTU_CARREIRA id_carreira=? AND nm_carreira=?";
+    public List<Carreira> RelatorioCarreira(int id) throws SQLException{
+        String sql= "SELECT * FROM T_RHSTU_CARREIRA id_carreira=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
             ps.setInt(1,id);
-            ps.setString(2,nome);
-
             List<Carreira> l= new ArrayList<>();
             try(ResultSet rs=ps.executeQuery()){
                 while(rs.next()){

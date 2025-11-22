@@ -36,20 +36,17 @@ public class CarreiraService {
         }
     }
 
-    public List<Carreira> relatorioCarreira(int id,String nome) throws SQLException {
-        valiacaoRelatorio(id,nome);
-        return carreiraRepository.RelatorioCarreira(id,nome);
+    public List<Carreira> relatorioCarreira(int id) throws SQLException {
+        valiacaoRelatorio(id);
+        return carreiraRepository.RelatorioCarreira(id);
     }
-    public void valiacaoRelatorio(int id,String nome) throws SQLException {
+    public void valiacaoRelatorio(int id) throws SQLException {
         List<Carreira> l= carreiraRepository.RelatorioCarreira(id,nome);
         if (l.isEmpty()){
             throw new IllegalArgumentException("Opção não existe no sistema");
         }
         if (id==0 || id<0){
             throw new IllegalArgumentException("id incorreto");
-        }
-        if (nome.isEmpty()){
-            throw new IllegalArgumentException(nome);
         }
     }
 
