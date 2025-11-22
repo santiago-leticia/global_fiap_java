@@ -70,7 +70,7 @@ public class CarreiraResource {
     }
     @PUT
     @Path("/carreira/atualizar/{id}")
-    public Response atualizarUsuario(@PathParam("id") int id, CarreiraDTO carreiraDTO){
+    public Response atualizarCarreira(@PathParam("id") int id, CarreiraDTO carreiraDTO){
         try{
             carreiraService.UpdanteCarreira(id,carreiraDTO.getNome_carreira(),
                     carreiraDTO.getAno_formacao(), carreiraDTO.getArea_de_trabalho(),
