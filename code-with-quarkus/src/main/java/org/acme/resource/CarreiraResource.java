@@ -53,7 +53,7 @@ public class CarreiraResource {
         }
     }
     @DELETE
-    @Path("carreira/delete/{id}")
+    @Path("/carreira/delete/{id}")
     public Response RemoverCarreira(@PathParam("id") int id,@QueryParam("nome") String nome){
         try {
             carreiraService.RemoverCarreira(id, nome);
@@ -70,7 +70,7 @@ public class CarreiraResource {
         }
     }
     @PUT
-    @Path("carreira/atualizar/{id}")
+    @Path("/carreira/atualizar/{id}")
     public Response atualizarUsuario(@PathParam("id") int id, CarreiraDTO carreiraDTO){
         try{
             carreiraService.UpdanteCarreira(id,carreiraDTO.getNome_carreira(),
