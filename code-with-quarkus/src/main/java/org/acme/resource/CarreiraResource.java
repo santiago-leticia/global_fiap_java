@@ -37,7 +37,7 @@ public class CarreiraResource {
         }
     }
     @GET
-    @Path("carreira/resultado")
+    @Path("/carreira/resultado")
     public Response relatorio_carreira(Carreira carreira){
         try{
             List<Carreira> l= carreiraService.relatorioCarreira(carreira.getId_carreira(),
