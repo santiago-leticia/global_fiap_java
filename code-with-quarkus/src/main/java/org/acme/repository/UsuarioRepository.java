@@ -32,7 +32,7 @@ public class UsuarioRepository {
     DataSource dateSource;
 
     public void cadastrarUsuario(UsuarioDTO usuarioDTO) throws SQLException{
-        String sql= "INSERT INTO T_RHSTU_USUARIO (nm_usuario, nr_cpf, nr_idade, email_usuario, senha_usuario) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO T_RHSTU_USUARIO (nm_usuario, nr_cpf, nr_idade, email_usuario, senha_usuario) VALUES (?,?,?,?,?)";
         try(Connection con = dateSource.getConnection();
             PreparedStatement ps= con.prepareStatement(sql)
         ) {
