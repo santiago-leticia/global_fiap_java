@@ -46,7 +46,7 @@ public class Usuario_habilidadeService {
         if (l.isEmpty()){
             throw new IllegalArgumentException("Nao existe no sistema");
         }
-        if (id==0){
+        if (id<=0){
             throw new IllegalArgumentException("ID incorreto");
         }
 
@@ -72,7 +72,7 @@ public class Usuario_habilidadeService {
     }
     public  void UpdanteValiacao(int id, int id_u, int id_h, String lv){
         try{
-            if (id>0){
+            if (id<0){
                 throw new IllegalArgumentException("id incorreto");
             }
             if (lv==null || lv.isEmpty()){
