@@ -49,9 +49,7 @@ public class Usuario_habilidadeRepository {
         String sql = "SELECT * FROM T_RHSTU_USUARIO_HABILIDADE WHERE id_habilidade_usuario = ?";
         try (Connection con = dataSource.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
-
             ps.setInt(1, id_habilidade_usuario);
-
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Usuario_habilidade u = new Usuario_habilidade();
@@ -59,14 +57,14 @@ public class Usuario_habilidadeRepository {
                     u.setId_usuario(rs.getInt(2));
                     u.setId_habilidade(rs.getInt(3));
                     u.setLv_proficiencia(rs.getString(4));
-
                     l.add(u);
                 }
             }
+            return l;
         } catch (SQLException e) {
             throw new SQLException(e);
         }
-        return l;
+
     }
     public void RemoverU_h(int id) throws SQLException {
         String sql = "DELETE FROM T_RHSTU_USUARIO_HABILIDADE WHERE id_habilidade_usuario = ?";

@@ -54,7 +54,6 @@ nm_categoria VARCHAR(60) NOT NULL
                     habilidade.setNm_habilidade(rs.getString(2));
                     habilidade.setDm_mercado(rs.getString(3));
                     habilidade.setNm_categoria(rs.getString(4));
-
                     l.add(habilidade);
                 }
             }
