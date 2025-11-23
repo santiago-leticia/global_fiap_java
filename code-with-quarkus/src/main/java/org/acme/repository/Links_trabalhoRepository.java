@@ -48,7 +48,7 @@ public class Links_trabalhoRepository {
     }
 
     public List<Links_Trabalho> RelatorioLinks(String nome) throws SQLException {
-        String sql="SELECT * FROM T_RHSTU_LINKS_TRABALHO WHERE nm_vaga=?";
+        String sql="SELECT * FROM T_RHSTU_LINKS_TRABALHO WHERE nm_vaga = ?";
         List<Links_Trabalho> l= new ArrayList<>();
         try(Connection con = dataSource.getConnection();
         PreparedStatement ps = con.prepareStatement(sql)){

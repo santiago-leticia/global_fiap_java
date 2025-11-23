@@ -54,7 +54,7 @@ public class CarreiraRepository {
     }
 
     public List<Carreira> RelatorioCarreira(int id) throws SQLException{
-        String sql= "SELECT * FROM T_RHSTU_CARREIRA id_carreira=?";
+        String sql= "SELECT * FROM T_RHSTU_CARREIRA WHERE id_carreira = ?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
             ps.setInt(1,id);
@@ -104,12 +104,11 @@ public class CarreiraRepository {
             return listaCarreira;
         }
     }
-    public void RemoverCadeira(int id, String carreira){
-        String sql= "DELETE FROM T_RHSTU_CARREIRA WHERE id_carreira=? AND nm_carreira=?";
+    public void RemoverCadeira(int id){
+        String sql= "DELETE FROM T_RHSTU_CARREIRA WHERE id_carreira=?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)) {
             ps.setInt(1,id);
-            ps.setString(2,carreira);
 
             int deleta=ps.executeUpdate();
             if (deleta==0){
@@ -134,6 +133,7 @@ public class CarreiraRepository {
             ps.setDouble(7,s_max);
             ps.setInt(8,t_p_m);
             ps.setInt(9,id);
+            ps.executeUpdate();
         }catch (SQLException e){
             throw new RuntimeException("Erro de executar updante.");
         }

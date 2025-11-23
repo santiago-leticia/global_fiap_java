@@ -42,7 +42,7 @@ public class Teste_questaoRepository {
     }
 
     public List<Teste_Questao> relatorio(int id) throws SQLException{
-        String sql="select * from T_RHSTU_TESTE_QUESTAO where id_questao=?";
+        String sql="select * from T_RHSTU_TESTE_QUESTAO where id_questao = ?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
             ps.setInt(1,id);
@@ -84,7 +84,7 @@ public class Teste_questaoRepository {
     }
 
     public void RemoverQuestao(int id) throws SQLException{
-        String sql="DELETE FROM T_RHSTU_TESTE_QUESTAO WHERE id_questao=?";
+        String sql="DELETE FROM T_RHSTU_TESTE_QUESTAO WHERE id_questao = ?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1,id);

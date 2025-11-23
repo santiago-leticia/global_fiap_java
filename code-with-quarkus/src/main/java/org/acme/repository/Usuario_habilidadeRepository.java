@@ -46,7 +46,7 @@ public class Usuario_habilidadeRepository {
 
     public List<Usuario_habilidade> RelatorioUsuarioH(int id_habilidade_usuario)throws SQLException{
         List<Usuario_habilidade> l = new ArrayList<>();
-        String sql = "SELECT * FROM T_RHSTU_USUARIO_HABILIDADE WHERE id_habilidade_usuario=?";
+        String sql = "SELECT * FROM T_RHSTU_USUARIO_HABILIDADE WHERE id_habilidade_usuario = ?";
         try (Connection con = dataSource.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -69,7 +69,7 @@ public class Usuario_habilidadeRepository {
         return l;
     }
     public void RemoverU_h(int id) throws SQLException {
-        String sql = "DELETE FROM T_RHSTU_USUARIO_HABILIDADE WHERE id_habilidade_usuario=?";
+        String sql = "DELETE FROM T_RHSTU_USUARIO_HABILIDADE WHERE id_habilidade_usuario = ?";
         try (Connection con = dataSource.getConnection();
              PreparedStatement ps = con.prepareStatement(sql))
         {

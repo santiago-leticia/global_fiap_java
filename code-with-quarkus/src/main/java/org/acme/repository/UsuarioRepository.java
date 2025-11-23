@@ -61,7 +61,7 @@ public class UsuarioRepository {
         }
     }
     public List<Usuario> login(String email, String senha) throws SQLException{
-        String sql="select * from T_RHSTU_USUARIO WHERE email_usuario=? AND senha_usuario=?";
+        String sql="select * from T_RHSTU_USUARIO WHERE email_usuario = ? AND senha_usuario = ?";
         try(Connection con =dateSource.getConnection();
             PreparedStatement ps=con.prepareStatement(sql)){
             ps.setString(1,email);
@@ -87,7 +87,7 @@ public class UsuarioRepository {
         }
     }
     public void DeletarConta(String email, String senha) throws SQLException{
-        String sql="DELETE FROM T_RHSTU_USUARIO WHERE email_usuario=? AND senha_usuario=?";
+        String sql="DELETE FROM T_RHSTU_USUARIO WHERE email_usuario= ? AND senha_usuario= ?";
 
         try(Connection con = dateSource.getConnection();
         PreparedStatement ps=con.prepareStatement(sql)){

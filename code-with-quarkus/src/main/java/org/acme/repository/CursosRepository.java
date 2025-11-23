@@ -59,7 +59,7 @@ public class CursosRepository {
                 " ca.id_carreira, " +
                 " ca.nm_carreira "+
                 " FROM T_RHSTU_CURSOS c, T_RHSTU_CARREIRA ca " +
-                " WHERE ca.id_carreira= c.id_carreira AND c.nm_curso=?";
+                " WHERE ca.id_carreira = c.id_carreira AND c.nm_curso = ?";
         List<Cursos> l= new ArrayList<>();
         try(Connection con= dataSource.getConnection();
             PreparedStatement ps= con.prepareStatement(sql)) {
@@ -83,7 +83,7 @@ public class CursosRepository {
         }
     }
     public void RemoverCurso(String nomeCurso) throws SQLException{
-        String sql= "DELETE FROM T_RHSTU_CURSOS WHERE nm_curso=?";
+        String sql= "DELETE FROM T_RHSTU_CURSOS WHERE nm_curso = ?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
             ps.setString(1,nomeCurso);

@@ -41,7 +41,7 @@ nm_categoria VARCHAR(60) NOT NULL
     }
 
     public List<Habilidade> RelatorioHabilidade(String nome) throws SQLException{
-        String sql="SELECT * FROM T_RHSTU_HABILIDADE WHERE nm_habilidade=?";
+        String sql="SELECT * FROM T_RHSTU_HABILIDADE WHERE nm_habilidade = ?";
         try(Connection con= dataSource.getConnection();
         PreparedStatement ps= con.prepareStatement(sql)){
             ps.setString(1,nome);

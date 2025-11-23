@@ -47,17 +47,14 @@ public class CarreiraService {
         }
     }
 
-    public void RemoverCarreira(int id, String nome) throws SQLException{
-        valiacaoRemocao(id, nome);
-        carreiraRepository.RemoverCadeira(id,nome);
+    public void RemoverCarreira(int id) throws SQLException{
+        valiacaoRemocao(id);
+        carreiraRepository.RemoverCadeira(id);
     }
-    public void valiacaoRemocao(int id, String nome){
+    public void valiacaoRemocao(int id){
         try{
             if (id==0){
                 throw new IllegalArgumentException("id incorreto");
-            }
-            if (nome.isEmpty()){
-                throw new IllegalArgumentException("Nome incorreto da carreira");
             }
         }catch (Exception e){
             throw new RuntimeException(e);

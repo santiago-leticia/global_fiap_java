@@ -39,7 +39,7 @@ public class UsuarioResource {
         }
     }
     @GET
-    @Path("login")
+    @Path("/login")
     public Response login(Usuario usuario){
         try{
             List<Usuario> l= usuarioService.relatorioUsuario(

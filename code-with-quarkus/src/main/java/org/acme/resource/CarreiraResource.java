@@ -37,7 +37,7 @@ public class CarreiraResource {
         }
     }
     @GET
-    @Path("/carreira/resultado/{id}")
+    @Path("/carreira/{id}")
     public Response relatorio_carreira(@PathParam("id") int id){
         try{
             List<Carreira> l= carreiraService.relatorioCarreira(id);
@@ -53,9 +53,9 @@ public class CarreiraResource {
     }
     @DELETE
     @Path("/carreira/delete/{id}")
-    public Response RemoverCarreira(@PathParam("id") int id,@QueryParam("nome") String nome){
+    public Response RemoverCarreira(@PathParam("id") int id){
         try {
-            carreiraService.RemoverCarreira(id, nome);
+            carreiraService.RemoverCarreira(id);
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){

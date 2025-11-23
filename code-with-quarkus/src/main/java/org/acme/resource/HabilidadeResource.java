@@ -44,7 +44,7 @@ public class HabilidadeResource {
         }
     }
     @GET
-    @Path("/habilidade/informacao")
+    @Path("/habilidade/informacao/{nmh}")
     public Response RelatorioHabilidade(@PathParam("nmh") String nm_habilidade){
         try{
             List<Habilidade> l= habilidadeService.relatorio(
