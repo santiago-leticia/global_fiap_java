@@ -77,15 +77,12 @@ public class UsuarioService {
         }
     }
 
-    public void UpdanteUsuario(String nome, String cpf, int idade, String email,String senha, int id, String emailO, String sO) throws SQLException{
-        UpdanteValiacao(nome, cpf, idade, email, senha, id, emailO, sO);
-        usuarioRepository.updanteConta(nome, cpf, idade, email, senha, id, emailO, sO);
+    public void UpdanteUsuario(String nome, String cpf, int idade, String email,String senha, String emailO, String sO) throws SQLException{
+        UpdanteValiacao(nome, cpf, idade, email, senha, emailO, sO);
+        usuarioRepository.updanteConta(nome, cpf, idade, email, senha, emailO, sO);
     }
-    public  void UpdanteValiacao(String nome, String cpf, int idade, String email,String senha, int id, String emailO, String sO){
+    public  void UpdanteValiacao(String nome, String cpf, int idade, String email,String senha, String emailO, String sO){
         try{
-            if (id>0){
-                throw new IllegalArgumentException("id incorreto");
-            }
             if (cpf==null || cpf.isEmpty()){
                 throw new IllegalArgumentException("Incorreto cpf");
             }

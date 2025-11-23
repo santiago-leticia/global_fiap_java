@@ -102,8 +102,8 @@ public class UsuarioRepository {
             throw new SQLException("Erro de remover");
         }
     }
-    public void updanteConta(String nome, String cpf, int idade, String email,String senha, int id, String emailO, String sO) throws SQLException{
-        String sql="UPDATE T_RHSTU_USUARIO SET nm_usuario=?, nr_cpf=?, nr_idade=?, email_usuario=?, senha_usuario=? WHERE id_usuario=? AND email_usuario=? AND senha_usuario=?";
+    public void updanteConta(String nome, String cpf, int idade, String email,String senha, String emailO, String sO) throws SQLException{
+        String sql="UPDATE T_RHSTU_USUARIO SET nm_usuario=?, nr_cpf=?, nr_idade=?, email_usuario=?, senha_usuario=? WHERE email_usuario=? AND senha_usuario=?";
         try(Connection con= dateSource.getConnection(); PreparedStatement ps=con.prepareStatement(sql)){
 
             ps.setString(1,nome);
@@ -111,9 +111,8 @@ public class UsuarioRepository {
             ps.setInt(3,idade);
             ps.setString(4,email);
             ps.setString(5,senha);
-            ps.setInt(6,id);
-            ps.setString(7,emailO);
-            ps.setString(8,sO);
+            ps.setString(6,emailO);
+            ps.setString(7,sO);
 
             int alteracao=ps.executeUpdate();
             if (alteracao==0){
