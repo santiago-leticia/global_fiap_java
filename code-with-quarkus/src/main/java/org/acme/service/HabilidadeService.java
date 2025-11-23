@@ -43,10 +43,7 @@ public class HabilidadeService {
         }
     }
     public void valiacaoRelatorio(String n) throws SQLException{
-        List<Habilidade>l= habilidadeRepository.RelatorioHabilidade(n);
-        if (l.isEmpty()){
-            throw new IllegalArgumentException("Nao existe no sistema");
-        }
+
         if (n.isEmpty()){
             throw new IllegalArgumentException("nome incorreto");
         }

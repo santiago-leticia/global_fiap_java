@@ -60,8 +60,7 @@ public class Teste_opcaoService {
         valiacaoRelatorio(id);
         return testeOpcaoRepository.relatorio(id);
     }
-    public void valiacaoRelatorio(int id) throws SQLException{
-        List<Teste_opcao> l= testeOpcaoRepository.relatorio(id);
+    public void valiacaoRelatorio(int id) throws SQLException{List<Teste_opcao> l= testeOpcaoRepository.relatorio(id);
         if (l.isEmpty()){
             throw new IllegalArgumentException("Opção não existe no sistema");
         }

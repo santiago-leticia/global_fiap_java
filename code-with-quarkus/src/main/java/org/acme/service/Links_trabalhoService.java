@@ -44,10 +44,7 @@ public class Links_trabalhoService {
         }
     }
     public void valiacaoRelatorio(String n) throws SQLException{
-        List<Links_Trabalho>l= linksTrabalhoRepository.RelatorioLinks(n);
-        if (l.isEmpty()){
-            throw new IllegalArgumentException("Nao existe no sistema");
-        }
+
         if (n.isEmpty()){
             throw new IllegalArgumentException("ID incorreto");
         }

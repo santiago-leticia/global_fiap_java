@@ -46,10 +46,7 @@ public class Habilidade_profissionalService {
         }
     }
     public void valiacaoRelatorio(int i) throws SQLException{
-        List<Habilidade_profissional>l= habilidadeProfissionalRepository.RelatorioUsuarioH(i);
-        if (l.isEmpty()){
-            throw new IllegalArgumentException("Nao existe no sistema");
-        }
+
         if (i==0 || i<0){
             throw new IllegalArgumentException("id incorreto");
         }

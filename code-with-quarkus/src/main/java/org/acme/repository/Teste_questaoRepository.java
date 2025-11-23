@@ -58,8 +58,9 @@ public class Teste_questaoRepository {
 
                     l.add(t);
                 }
-                return l;
+
             }
+            return l;
         }catch (SQLException e){
             throw new SQLException(e);
         }

@@ -42,10 +42,6 @@ public class Usuario_habilidadeService {
         }
     }
     public void valiacaoRelatorio(int id) throws SQLException{
-        List<Usuario_habilidade>l= usuario_habilidadeRepository.RelatorioUsuarioH(id);
-        if (l.isEmpty()){
-            throw new IllegalArgumentException("Nao existe no sistema");
-        }
         if (id<=0){
             throw new IllegalArgumentException("ID incorreto");
         }

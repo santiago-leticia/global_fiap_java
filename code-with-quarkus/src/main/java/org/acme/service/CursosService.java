@@ -46,10 +46,7 @@ public class CursosService {
         }
     }
     public void valiacaoRelatorio(String nome) throws SQLException{
-        List<Cursos>l= cursosRepository.RelatorioCursos(nome);
-        if (l.isEmpty()){
-            throw new IllegalArgumentException("Não existe no sistema");
-        }
+
         if (nome.isEmpty() || nome==null){
             throw new IllegalArgumentException("nome incorreto");
         }

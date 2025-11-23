@@ -80,8 +80,8 @@ public class UsuarioRepository {
 
                     l.add(usuario);
                 }
-                return l;
             }
+            return l;
         }catch (SQLException e){
             throw new RuntimeException(e);
         }

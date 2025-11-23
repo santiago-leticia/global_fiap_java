@@ -57,8 +57,8 @@ nm_categoria VARCHAR(60) NOT NULL
 
                     l.add(habilidade);
                 }
-                return l;
             }
+            return l;
         }catch (SQLException e){
             throw new SQLException(e);
         }
