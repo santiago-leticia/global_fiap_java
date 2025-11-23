@@ -77,11 +77,11 @@ public class UsuarioService {
         }
     }
 
-    public void UpdanteUsuario(String nome, String cpf, int idade, String email,String senha, String emailO, String sO) throws SQLException{
-        UpdanteValiacao(nome, cpf, idade, email, senha, emailO, sO);
-        usuarioRepository.updanteConta(nome, cpf, idade, email, senha, emailO, sO);
+    public void UpdanteUsuario(String nome, String cpf, int idade, String email,String senha, int id) throws SQLException{
+        UpdanteValiacao(nome, cpf, idade, email, senha,id);
+        usuarioRepository.updanteConta(nome, cpf, idade, email, senha,id);
     }
-    public  void UpdanteValiacao(String nome, String cpf, int idade, String email,String senha, String emailO, String sO){
+    public  void UpdanteValiacao(String nome, String cpf, int idade, String email,String senha,int id){
         try{
             if (cpf==null || cpf.isEmpty()){
                 throw new IllegalArgumentException("Incorreto cpf");
@@ -89,14 +89,12 @@ public class UsuarioService {
             if (usuarioRepository.existeEmail(email)){
                 throw new IllegalArgumentException("Email ja cadastrado");
             }
-            if (email==null || email.isEmpty() || emailO==null || emailO.isEmpty()){
-                throw new IllegalArgumentException("Emaill incorreto");
-            }
+
             if (nome==null || nome.isEmpty()){
                 throw new IllegalArgumentException("Nome incorreto.");
             }
-            if (senha==null || senha.isEmpty() || sO==null || sO.isEmpty()){
-                throw new IllegalArgumentException("Senha incorreta");
+            if (id<0){
+                throw new IllegalArgumentException("id incorreta");
             }
             if (idade<0){
                 throw new IllegalArgumentException("Idade incorreta");

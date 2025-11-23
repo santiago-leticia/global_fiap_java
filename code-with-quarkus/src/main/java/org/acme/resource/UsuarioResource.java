@@ -82,7 +82,7 @@ public class UsuarioResource {
             usuarioService.UpdanteUsuario(usuario.getNome(),
                     usuario.getCpf(),usuario.getIdade(),
                     usuario.getEmail(), usuario.getSenha(),
-                     usuario.getEmail(), usuario.getSenha());
+                     usuario.getId_usuario());
 
             return Response.status(Response.Status.OK)
                     .entity("Dados atualizando")
