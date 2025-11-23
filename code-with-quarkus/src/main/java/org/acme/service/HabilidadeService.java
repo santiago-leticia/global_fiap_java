@@ -50,17 +50,14 @@ public class HabilidadeService {
 
     }
 
-    public void Remover(int id,String nm) throws  SQLException{
-        valiacaoRemocao(id,nm);
-        habilidadeRepository.RemoverHabilidade(id,nm);
+    public void Remover(int id) throws  SQLException{
+        valiacaoRemocao(id);
+        habilidadeRepository.RemoverHabilidade(id);
     }
-    public void valiacaoRemocao(int id,String nm){
+    public void valiacaoRemocao(int id){
         try{
             if (id==0 || id<0){
                 throw new IllegalArgumentException("ID incorreto");
-            }
-            if (nm.isEmpty()){
-                throw new IllegalArgumentException("nome da habilidade incorreto");
             }
         }catch (Exception e){
             throw new RuntimeException(e);

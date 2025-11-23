@@ -63,13 +63,11 @@ nm_categoria VARCHAR(60) NOT NULL
             throw new SQLException(e);
         }
     }
-    public void RemoverHabilidade(int id,String nome) throws SQLException {
-        String sql = "DELETE FROM T_RHSTU_HABILIDADE WHERE id_habilidade=? AND nm_habilidade=?";
+    public void RemoverHabilidade(int id) throws SQLException {
+        String sql = "DELETE FROM T_RHSTU_HABILIDADE WHERE id_habilidade=?";
         try (Connection con = dataSource.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1,id);
-            ps.setString(2,nome);
-
             int deleta=ps.executeUpdate();
             if (deleta==0){
                 throw new SQLException("Não foi deletado");

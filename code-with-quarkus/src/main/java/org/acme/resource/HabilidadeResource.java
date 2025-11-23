@@ -44,7 +44,7 @@ public class HabilidadeResource {
         }
     }
     @GET
-    @Path("/habilidade/informacao/{nmh}")
+    @Path("/habilidade/informacao")
     public Response RelatorioHabilidade(@PathParam("nmh") String nm_habilidade){
         try{
             List<Habilidade> l= habilidadeService.relatorio(
@@ -63,9 +63,9 @@ public class HabilidadeResource {
     }
     @DELETE
     @Path("/habilidade/deleta/{det}")
-    public Response RemoverHabilidade(@PathParam("det") int id_habilidade, @QueryParam("nm") String nm_habilidade){
+    public Response RemoverHabilidade(@PathParam("det") int id_habilidade){
         try {
-            habilidadeService.Remover(id_habilidade, nm_habilidade);
+            habilidadeService.Remover(id_habilidade);
             return  Response.status(Response.Status.OK)
                     .entity("Removido com sucesso").build();
         }catch (SQLException e){
